@@ -1,0 +1,15 @@
+{
+  "env": {
+    "browser": true,
+    "node": false
+  },
+  "extends": ["plugin:react/recommended"],
+  "parserOptions": {
+    "parser": "@typescript-eslint/parser",
+    "ecmaVersion": 12,
+    "sourceType": "module"
+  },
+  "rules": {
+    /** These rules are disabled because they are incompatible with prettier */
+  }
+}
