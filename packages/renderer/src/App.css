@@ -1,14 +1,51 @@
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin: 60px auto;
-  max-width: 700px;
+@font-face {
+  font-family: "HYWenHei-85W";
+  src: url("../assets/fonts/app-font.ttf") format("truetype");
 }
 
-fieldset {
-  margin: 2rem;
-  padding: 1rem;
+:root {
+  --acgcag-bg-gray: #2a2931;
+  --acgcag-button-bg: #3d4557;
+  --acgcag-bright-beige: #ece5d8;
+  --acgcag-main-beige: #dad5cb;
+  --acgcag-dim-beige: #b0a17d;
+}
+
+body {
+  margin: 0;
+  font-family: "HYWenHei-85W", "PT Sans", Calibri, Tahoma, sans-serif;
+  font-weight: 500;
+  background: black;
+}
+
+#app {
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+}
+
+.content-divider {
+  display: flex;
+  height: 100%;
+}
+
+.app-bg {
+  background-image: url("@assets/backgrounds/app-bg.jpg");
+
+  filter: blur(8px);
+  -webkit-filter: blur(8px);
+
+  background-position: center;
+  background-size: cover;
+
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+  position: fixed;
+  transform: scale(1.05);
+}
+
+.content {
+  top: 0;
+  left: 0;
 }

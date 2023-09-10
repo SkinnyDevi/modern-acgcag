@@ -1,0 +1,17 @@
+.acgcag_sidebar {
+  width: 88px;
+  background: var(--acgcag-bg-gray);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.acgcag_sidebar_start_btns {
+  height: 80%;
+  justify-content: flex-start;
+}
+
+.acgcag_sidebar_end_btns {
+  justify-content: flex-end;
+  height: 40%;
+}

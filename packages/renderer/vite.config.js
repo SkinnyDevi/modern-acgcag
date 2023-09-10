@@ -4,6 +4,7 @@ import {chrome} from '../../.electron-vendors.cache.json';
 import react from '@vitejs/plugin-react';
 import {renderer} from 'unplugin-auto-expose';
 import {join} from 'node:path';
+import {fileURLToPath} from 'node:url';
 import {injectAppVersion} from '../../version/inject-app-version-plugin.mjs';
 
 const PACKAGE_ROOT = __dirname;
@@ -18,9 +19,13 @@ const config = {
   root: PACKAGE_ROOT,
   envDir: PROJECT_ROOT,
   resolve: {
-    alias: {
-      '/@/': join(PACKAGE_ROOT, 'src') + '/',
-    },
+    alias: [
+      {find: '@', replacement: fileURLToPath(new URL('./src', import.meta.url))},
+      {
+        find: '@assets',
+        replacement: fileURLToPath(new URL('./assets', import.meta.url)),
+      },
+    ],
   },
   base: '',
   server: {

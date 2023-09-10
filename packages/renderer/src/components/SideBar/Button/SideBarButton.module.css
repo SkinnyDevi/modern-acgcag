@@ -1,0 +1,20 @@
+.acgcag_sidebar_btn {
+  width: 60px;
+  height: 60px;
+  background: var(--acgcag-button-bg);
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 10px 0 10px 0;
+}
+
+.acgcag_sidebar_btn > svg {
+  fill: var(--acgcag-main-beige);
+}
+
+.acgcag_sidebar_btn:hover,
+.acgcag_sidebar_btn *:hover {
+  background: var(--acgcag-main-beige);
+  fill: var(--acgcag-button-bg);
+}

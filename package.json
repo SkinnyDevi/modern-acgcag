@@ -1,12 +1,11 @@
 {
-  "name": "vite-electron-builder",
-  "description": "Secure boilerplate for Electron app based on Vite",
-  "version": "1.0.2",
+  "name": "modern-acgcag",
+  "description": "A modern version of my GI skin launcher ACGCAG.",
+  "version": "1.0.0",
   "private": true,
   "author": {
-    "email": "kozackunisoft@gmail.com",
-    "name": "Alex Kozack",
-    "url": "https://kozack.me"
+    "email": "skinnydevi.dev@gmail.com",
+    "name": "SkinnyDevi"
   },
   "main": "packages/main/dist/index.cjs",
   "scripts": {

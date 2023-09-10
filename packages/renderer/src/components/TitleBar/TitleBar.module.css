@@ -1,0 +1,27 @@
+.acgcag_titlebar {
+  width: 100vw;
+  height: 77px;
+  background: var(--acgcag-bright-beige);
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.acgcag_titlebar > h1 {
+  font-size: 27px;
+  font-weight: 500;
+}
+
+.acgcag_paimon_icon {
+  padding-left: 15px;
+}
+
+.acgcag_paimon_icon > img {
+  width: 59px;
+  height: 68px;
+}
+
+.acgcag_search_icon {
+  padding-right: 20px;
+}
