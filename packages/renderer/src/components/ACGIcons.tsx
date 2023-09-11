@@ -1,4 +1,5 @@
 import React from 'react';
+import BananaPng from '@assets/banana-icon.png';
 
 export interface ACGIconsProps {
   iconName: 'search' | 'downloaded' | 'shader' | 'import' | 'file-edit' | 'banana' | 'play';
@@ -57,6 +58,14 @@ export default function ACGIcons({iconName, iconSize}: ACGIconsProps) {
     case 'play':
       return (
         <PlayIcon
+          width={w}
+          height={h}
+        />
+      );
+
+    case 'banana':
+      return (
+        <BananaIcon
           width={w}
           height={h}
         />
@@ -199,5 +208,15 @@ function PlayIcon({width, height}: IconSize) {
     >
       <path d="M30.3134 14.0864L6.96851 0.393246C6.94781 0.380825 6.92711 0.369435 6.90538 0.359076C4.6879 -0.697634 2.01814 0.905678 2.01813 3.38049V30.6194C2.01813 33.1404 4.76148 34.7147 6.96851 33.6067C6.96851 33.6067 30.2709 19.9385 30.3134 19.9136C32.4986 18.6318 32.4943 15.3642 30.3134 14.0864Z" />
     </svg>
+  );
+}
+
+function BananaIcon({width, height}: IconSize) {
+  return (
+    <img
+      src={BananaPng}
+      width={width}
+      height={height}
+    />
   );
 }

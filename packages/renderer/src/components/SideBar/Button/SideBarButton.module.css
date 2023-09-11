@@ -7,14 +7,18 @@
   align-items: center;
   justify-content: center;
   margin: 10px 0 10px 0;
+  outline: none;
+  border: none;
 }
 
 .acgcag_sidebar_btn > svg {
   fill: var(--acgcag-main-beige);
 }
 
-.acgcag_sidebar_btn:hover,
-.acgcag_sidebar_btn *:hover {
-  background: var(--acgcag-main-beige);
-  fill: var(--acgcag-button-bg);
+.acgcag_sidebar_btn_hover {
+  background: var(--acgcag-main-beige) !important;
+}
+
+.acgcag_sidebar_btn_hover > svg {
+  fill: var(--acgcag-button-bg) !important;
 }

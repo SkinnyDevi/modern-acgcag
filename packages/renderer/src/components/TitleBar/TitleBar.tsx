@@ -15,7 +15,7 @@ export default function TitleBar() {
           alt="Paimon Icon"
         />
       </div>
-      <h1>{title}</h1>
+      <h1>{title.toUpperCase()}</h1>
       <div className={styles.acgcag_search_icon}>
         <ACGIcons
           iconName="search"

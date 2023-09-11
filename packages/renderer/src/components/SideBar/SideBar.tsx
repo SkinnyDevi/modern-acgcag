@@ -9,28 +9,35 @@ export default function SideBar() {
         <SideBarButton
           iconName="downloaded"
           iconSize={[34, 34]}
+          tabTitle="Downloaded Skins"
         />
         <SideBarButton
           iconName="shader"
           iconSize={[34, 34]}
+          tabTitle="Downloaded Shader Fixes"
         />
         <SideBarButton
           iconName="import"
           iconSize={[34, 34]}
+          tabTitle="Import Skins from GameBanana"
         />
         <SideBarButton
           iconName="file-edit"
           iconSize={[34, 34]}
+          tabTitle="File Edit"
         />
       </div>
       <div className={styles.acgcag_sidebar_end_btns}>
         <SideBarButton
-          iconName="play"
+          iconName="banana"
           iconSize={[28, 28]}
+          tabTitle=""
+          tabChange={false}
         />
         <SideBarButton
           iconName="play"
           iconSize={[28, 28]}
+          tabTitle="3DMigoto Launched"
         />
       </div>
     </div>

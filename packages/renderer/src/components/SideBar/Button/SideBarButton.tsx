@@ -1,15 +1,48 @@
-import React from 'react';
+import React, {useContext} from 'react';
 import type {ACGIconsProps} from '@/components/ACGIcons';
 import ACGIcons from '@/components/ACGIcons';
+import {TitleCtx} from '@/hooks/TitleContext';
 import styles from './SideBarButton.module.css';
 
-export default function SideBarButton({iconName, iconSize}: ACGIconsProps) {
+interface SideBarButtonProps {
+  iconName: ACGIconsProps['iconName'];
+  iconSize: ACGIconsProps['iconSize'];
+  tabTitle: string;
+  tabChange?: boolean;
+}
+
+export default function SideBarButton({
+  iconName,
+  iconSize,
+  tabTitle,
+  tabChange = true,
+}: SideBarButtonProps) {
+  const {setTitle} = useContext(TitleCtx);
+
+  function hoverButton(e: React.MouseEvent<HTMLButtonElement, MouseEvent>, enter: boolean) {
+    const btn = e.target as HTMLButtonElement;
+
+    if (enter) btn.classList.add(styles.acgcag_sidebar_btn_hover);
+    else btn.classList.remove(styles.acgcag_sidebar_btn_hover);
+  }
+
+  function setTab() {
+    if (!tabChange) return;
+
+    setTitle(tabTitle);
+  }
+
   return (
-    <div className={styles.acgcag_sidebar_btn}>
+    <button
+      onMouseEnter={e => hoverButton(e, true)}
+      onMouseLeave={e => hoverButton(e, false)}
+      className={styles.acgcag_sidebar_btn}
+      onClick={setTab}
+    >
       <ACGIcons
         iconName={iconName}
         iconSize={iconSize}
       />
-    </div>
+    </button>
   );
 }
