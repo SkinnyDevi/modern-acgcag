@@ -38,6 +38,7 @@ export default function SideBarButton({
       onMouseLeave={e => hoverButton(e, false)}
       className={styles.acgcag_sidebar_btn}
       onClick={setTab}
+      id={`acgcag-sidebar-btn-${iconName}`}
     >
       <ACGIcons
         iconName={iconName}

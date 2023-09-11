@@ -15,10 +15,14 @@
   fill: var(--acgcag-main-beige);
 }
 
-.acgcag_sidebar_btn_hover {
-  background: var(--acgcag-main-beige) !important;
+.acgcag_sidebar_btn_hover,
+.acgcag_sidebar_btn[disabled],
+.acgcag_sidebar_btn:disabled {
+  background: var(--acgcag-main-beige);
 }
 
-.acgcag_sidebar_btn_hover > svg {
-  fill: var(--acgcag-button-bg) !important;
+.acgcag_sidebar_btn_hover > svg,
+.acgcag_sidebar_btn[disabled] > svg,
+.acgcag_sidebar_btn:disabled > svg {
+  fill: var(--acgcag-button-bg);
 }
