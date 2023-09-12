@@ -11,6 +11,10 @@
   border: none;
 }
 
+.acgcag_sidebar_btn:hover {
+  cursor: pointer;
+}
+
 .acgcag_sidebar_btn > svg {
   fill: var(--acgcag-main-beige);
 }

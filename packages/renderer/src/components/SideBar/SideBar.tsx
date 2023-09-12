@@ -1,4 +1,5 @@
 import React, {useContext, useEffect} from 'react';
+import {openGameBanana} from '#preload';
 import type {ACGIconsProps} from '../ACGIcons';
 import SideBarButton from './Button/SideBarButton';
 import styles from './SideBar.module.css';
@@ -87,6 +88,7 @@ export default function SideBar() {
           iconSize={[28, 28]}
           tabTitle=""
           tabChange={false}
+          callback={openGameBanana}
         />
         <SideBarButton
           iconName="play"

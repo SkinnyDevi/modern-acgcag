@@ -9,6 +9,7 @@ interface SideBarButtonProps {
   iconSize: ACGIconsProps['iconSize'];
   tabTitle: string;
   tabChange?: boolean;
+  callback?: () => void;
 }
 
 export default function SideBarButton({
@@ -16,6 +17,7 @@ export default function SideBarButton({
   iconSize,
   tabTitle,
   tabChange = true,
+  callback,
 }: SideBarButtonProps) {
   const {setTitle} = useContext(TitleCtx);
 
@@ -27,6 +29,7 @@ export default function SideBarButton({
   }
 
   function setTab() {
+    if (callback !== undefined) callback();
     if (!tabChange) return;
 
     setTitle(tabTitle);
