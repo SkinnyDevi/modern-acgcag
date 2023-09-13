@@ -1,4 +1,4 @@
-import {app, BrowserWindow} from 'electron';
+import {app, BrowserWindow, ipcMain} from 'electron';
 import {join, resolve} from 'node:path';
 
 async function createWindow() {
@@ -32,6 +32,10 @@ async function createWindow() {
     if (import.meta.env.DEV) {
       browserWindow?.webContents.openDevTools();
     }
+  });
+
+  ipcMain.on('app-path', e => {
+    e.returnValue = app.getAppPath();
   });
 
   /**

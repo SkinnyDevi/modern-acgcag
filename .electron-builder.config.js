@@ -21,11 +21,6 @@ module.exports = async function () {
       version: getVersion(),
     },
 
-    // Specify linux target just for disabling snap compilation
-    linux: {
-      target: 'deb',
-    },
-
     icon: 'buildResources/app.ico',
     asar: true,
   };

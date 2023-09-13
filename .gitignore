@@ -1,3 +1,6 @@
+# ACGCAG
+acgcag_config/
+
 node_modules
 .DS_Store
 dist
