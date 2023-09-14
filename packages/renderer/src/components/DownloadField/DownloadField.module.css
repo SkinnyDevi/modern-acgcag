@@ -1,0 +1,13 @@
+.acgcag_download_field {
+  margin: 10px 0;
+}
+
+.acgcag_dl_field_info {
+  display: flex;
+}
+
+.acgcag_dl_field_info > p {
+  color: var(--acgcag-dim-beige);
+  font-size: 17px;
+  padding: 0 10px 0 0;
+}

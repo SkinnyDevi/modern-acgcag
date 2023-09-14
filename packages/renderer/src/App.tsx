@@ -15,7 +15,7 @@ const App = () => {
   const [loadApp, setLoadApp] = useState(true);
 
   useEffect(() => {
-    setLoadApp(!CONFIG.has_run_setup);
+    setLoadApp(CONFIG.has_run_setup);
   }, []);
 
   return (
