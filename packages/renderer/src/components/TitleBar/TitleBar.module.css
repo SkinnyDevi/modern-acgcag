@@ -1,16 +1,36 @@
 .acgcag_titlebar {
+  padding-top: 5px;
   width: 100vw;
   height: 77px;
+  display: flex;
+  flex-direction: row;
   background: var(--acgcag-bright-beige);
+  align-items: center;
+  justify-content: space-between;
+}
+
+.acgcag_setup_titlebar {
+  padding-top: 5px;
+  width: 100vw;
+  height: 77px;
+  background: var(--acgcag-bg-gray);
   display: flex;
   flex-direction: row;
   align-items: center;
-  justify-content: space-between;
+  justify-content: flex-start;
 }
 
 .acgcag_titlebar > h1 {
   font-size: 27px;
   font-weight: 500;
+  color: var(--acgcag-text-dark);
+}
+
+.acgcag_setup_titlebar > h1 {
+  font-size: 27px;
+  font-weight: 500;
+  margin-left: 20px;
+  color: var(--acgcag-main-beige);
 }
 
 .acgcag_paimon_icon {
