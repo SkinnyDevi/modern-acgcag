@@ -38,6 +38,11 @@ async function createWindow() {
     e.returnValue = app.getAppPath();
   });
 
+  ipcMain.on('restart-app', _ => {
+    app.relaunch();
+    app.exit();
+  });
+
   /**
    * Load the main page of the main window.
    */

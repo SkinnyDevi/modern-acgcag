@@ -37,11 +37,7 @@ function configExists() {
  * @param data The data to be stored.
  */
 function saveConfig(data: ACGCAG_Config) {
-  console.log(CONFIG_PATH);
-  console.log(configExists());
-  if (!configExists()) {
-    fs.mkdirSync(CONFIG_PATH);
-  }
+  if (!configExists()) fs.mkdirSync(CONFIG_PATH);
 
   fs.writeFileSync(CONFIG_PATH + '/config.json', JSON.stringify(data), 'utf-8');
 }

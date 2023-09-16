@@ -1,0 +1,15 @@
+.acgcag_ui_button {
+  outline: none;
+  background: var(--acgcag-button-fg);
+  color: var(--acgcag-text-dark);
+  border-radius: 10px;
+  font-size: 15px;
+  border: none;
+  margin: 5px;
+}
+
+.acgcag_ui_button:hover {
+  background: var(--acgcag-button-bg);
+  color: var(--acgcag-button-fg);
+  cursor: pointer;
+}

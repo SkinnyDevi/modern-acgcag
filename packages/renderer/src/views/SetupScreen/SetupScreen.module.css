@@ -3,9 +3,43 @@
   height: 100vh;
 }
 
+.acgcag_setup_title {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.acgcag_setup_title > h1 {
+  font-weight: 300;
+  font-size: 30px;
+  color: var(--acgcag-main-beige);
+}
+
+.acgcag_setup_finish_title {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.acgcag_setup_finish_title > h1 {
+  font-weight: 300;
+  font-size: 25px;
+  color: var(--acgcag-main-beige);
+  line-height: 0.5;
+}
+
+.acgcag_setup_finish_title > h2 {
+  font-weight: 300;
+  font-size: 20px;
+  color: var(--acgcag-dim-beige);
+  line-height: 0.5;
+}
+
 .acgcag_download_fields {
   width: 100%;
-  height: 70%;
+  height: 50%;
   display: flex;
   flex-direction: column;
   justify-content: center;
