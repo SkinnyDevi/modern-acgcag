@@ -1,7 +1,35 @@
 import {app, BrowserWindow, ipcMain} from 'electron';
 import {join, resolve} from 'node:path';
+import initEventHandlers from './eventHandlers';
+import {existsSync, readFileSync, writeFileSync} from 'node:fs';
+
+/**
+ * Checks if GIMI exists to run the setup installer if not.
+ */
+function gimiChecker() {
+  const ROOT_PATH = import.meta.env.DEV ? '' : '../..';
+  const rootPathlike = (...paths: string[]) => join(app.getAppPath(), ROOT_PATH, ...paths);
+
+  const gimiFolder = rootPathlike('/acgcag_mods/3dmigoto');
+  const gimiExists = existsSync(gimiFolder);
+
+  if (gimiExists) return false;
+
+  const configPath = rootPathlike('/acgcag_config/config.json');
+  if (!existsSync(configPath)) return false;
+
+  const raw = readFileSync(configPath, 'utf-8');
+  const contents = JSON.parse(raw);
+
+  if (!contents.has_run_setup as boolean) return false;
+  writeFileSync(configPath, JSON.stringify({has_run_setup: false}));
+
+  return true;
+}
 
 async function createWindow() {
+  const needsInstaller = gimiChecker();
+
   const browserWindow = new BrowserWindow({
     show: false, // Use the 'ready-to-show' event to show the instantiated BrowserWindow.
     webPreferences: {
@@ -12,11 +40,14 @@ async function createWindow() {
       preload: join(app.getAppPath(), 'packages/preload/dist/index.cjs'),
     },
     center: true,
+    minWidth: needsInstaller ? 870 : 500,
+    minHeight: needsInstaller ? 700 : 600,
     width: 1300,
     height: 750,
   });
 
   browserWindow.removeMenu();
+  initEventHandlers(ipcMain, app);
 
   /**
    * If the 'show' property of the BrowserWindow's constructor is omitted from the initialization options,
@@ -32,15 +63,6 @@ async function createWindow() {
     if (import.meta.env.DEV) {
       browserWindow?.webContents.openDevTools();
     }
-  });
-
-  ipcMain.on('app-path', e => {
-    e.returnValue = app.getAppPath();
-  });
-
-  ipcMain.on('restart-app', _ => {
-    app.relaunch();
-    app.exit();
   });
 
   /**

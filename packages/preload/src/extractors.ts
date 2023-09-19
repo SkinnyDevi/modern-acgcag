@@ -17,8 +17,6 @@ function zipExtractor(pathToZip: string, outDir: string, deleteZip = false) {
     const extractPath = PreloadUtils.rootPathlike(pathToZip);
     const outPath = PreloadUtils.rootPathlike(outDir);
 
-    console.log(extractPath, outPath);
-
     decompress(extractPath, outPath)
       .then(() => {
         if (deleteZip) rmSync(extractPath, {force: true, maxRetries: 5, retryDelay: 200});

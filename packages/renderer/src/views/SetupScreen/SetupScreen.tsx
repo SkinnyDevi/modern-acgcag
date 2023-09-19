@@ -27,6 +27,7 @@ export default function SetupScreen() {
     await downloadGimi();
     await extractGimi();
     setFinishSetup(true);
+    CONFIG.setupComplete();
   }
 
   async function downloadGimi() {
@@ -45,11 +46,6 @@ export default function SetupScreen() {
     await SetupHelpers.extractGimi();
     setGimiExtractBar(100);
     setGimiExtractStatus('Complete');
-  }
-
-  function finishACGCAGSetup() {
-    CONFIG.setupComplete();
-    PreloadUtils.restartApp();
   }
 
   return (
@@ -95,7 +91,7 @@ export default function SetupScreen() {
         <h2 style={{marginBottom: '25px'}}>complete installation.</h2>
         <UIButton
           display
-          onClick={finishACGCAGSetup}
+          onClick={PreloadUtils.restartApp}
         >
           Finish Setup
         </UIButton>
