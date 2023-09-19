@@ -1,21 +1,18 @@
 import * as fs from 'fs';
-import * as path from 'path';
-import {ipcRenderer} from 'electron';
+
+import PreloadUtils from '../utils';
 
 export type ACGCAG_Config = {
   has_run_setup: boolean;
 };
 
 /**
- * Request the app path from the main process.
- * @returns The app's string path.
+ * Get the config file path of ACGCAG.
+ * @returns File path as `string`.
  */
-function getAppPath(): string {
-  return ipcRenderer.sendSync('app-path');
+function getConfigPath() {
+  return PreloadUtils.rootPathlike('/acgcag_config');
 }
-
-const CONFIG_FOLDER_PATH = import.meta.env.DEV ? '/acgcag_config' : '../../acgcag_config';
-const CONFIG_PATH = path.join(getAppPath(), CONFIG_FOLDER_PATH);
 
 /**
  * Check if the path exists.
@@ -29,7 +26,7 @@ function pathExists(path: string) {
  * Check if the config file exists.
  */
 function configExists() {
-  return pathExists(CONFIG_PATH);
+  return pathExists(getConfigPath());
 }
 
 /**
@@ -37,9 +34,9 @@ function configExists() {
  * @param data The data to be stored.
  */
 function saveConfig(data: ACGCAG_Config) {
-  if (!configExists()) fs.mkdirSync(CONFIG_PATH);
+  if (!configExists()) fs.mkdirSync(getConfigPath());
 
-  fs.writeFileSync(CONFIG_PATH + '/config.json', JSON.stringify(data), 'utf-8');
+  fs.writeFileSync(getConfigPath() + '/config.json', JSON.stringify(data), 'utf-8');
 }
 
 /**
@@ -47,16 +44,16 @@ function saveConfig(data: ACGCAG_Config) {
  * @returns A Config object with it's properties.
  */
 function readConfigFile(): ACGCAG_Config {
-  const raw = fs.readFileSync(CONFIG_PATH + '/config.json', 'utf-8');
+  const raw = fs.readFileSync(getConfigPath() + '/config.json', 'utf-8');
   return JSON.parse(raw);
 }
 
 const ConfigHelpers = {
+  getConfigPath,
   saveConfig,
   pathExists,
   readConfigFile,
   configExists,
-  CONFIG_PATH,
 };
 
 export default ConfigHelpers;

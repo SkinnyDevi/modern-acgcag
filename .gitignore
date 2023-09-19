@@ -1,5 +1,7 @@
 # ACGCAG
 acgcag_config/
+acgcag_mods/
+3dmigoto_download.zip
 
 node_modules
 .DS_Store

@@ -2,23 +2,12 @@
  * @module preload
  */
 
-import {shell, ipcRenderer} from 'electron';
-import ConfigHelpers from './configHelper';
-import type {ACGCAG_Config} from './configHelper';
+import ConfigHelpers from './helpers/configHelper';
+import SetupHelpers from './helpers/setupHelpers';
+import PreloadUtils from './utils';
+import Extractors from './extractors';
 
-/**
- * Open the Game Banana website.
- */
-export function openGameBanana() {
-  shell.openExternal('https://gamebanana.com');
-}
+import type {ACGCAG_Config} from './helpers/configHelper';
 
-/**
- * Restart the app
- */
-export function restartApp() {
-  ipcRenderer.sendSync('restart-app');
-}
-
-export {ConfigHelpers};
+export {ConfigHelpers, PreloadUtils, Extractors, SetupHelpers};
 export {ACGCAG_Config};

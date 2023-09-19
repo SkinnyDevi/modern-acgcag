@@ -1,48 +1,55 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 import React, {useState} from 'react';
-import DownloadField from '@/components/DownloadField/DownloadField';
-import type {DownloadStatus} from '@/components/DownloadField/DownloadField';
-import UIButton from '@/components/UIButton/UIButton';
-import {restartApp} from '#preload';
-import styles from './SetupScreen.module.css';
+
+import {PreloadUtils, SetupHelpers} from '#preload';
 import ConfigManager from '@/config/configManager';
+import DownloadField from '@/components/DownloadField/DownloadField';
+import UIButton from '@/components/UIButton/UIButton';
+import styles from './SetupScreen.module.css';
+
+import type {DownloadStatus} from '@/components/DownloadField/DownloadField';
 
 const CONFIG = ConfigManager.setup();
+const DL_URL =
+  'https://github.com/SilentNightSound/GI-Model-Importer/releases/download/v7.0/3dmigoto-GIMI-for-playing-mods.zip';
 
 export default function SetupScreen() {
   const [startSetup, setStartSetup] = useState(false);
   const [finishSetup, setFinishSetup] = useState(false);
 
   const [gimiDlStatus, setGimiStatus] = useState<DownloadStatus>('Waiting');
-  const [gimiExtractStatus, setGimiExtractStatus] = useState<DownloadStatus>('Waiting');
-  const [modsFolderStatus, setModsFolderStatus] = useState<DownloadStatus>('Waiting');
-
   const [gimiDlBar, setGimiDlBar] = useState(0);
+
   const [gimiExtractBar, setGimiExtractBar] = useState(0);
-  const [modsFolderBar, setModsFolderBar] = useState(0);
+  const [gimiExtractStatus, setGimiExtractStatus] = useState<DownloadStatus>('Waiting');
 
-  function startACGCAGSetup() {
+  async function startACGCAGSetup() {
     setStartSetup(true);
+    await downloadGimi();
+    await extractGimi();
+    setFinishSetup(true);
   }
 
-  function downloadGimi() {
+  async function downloadGimi() {
     setGimiStatus('Downloading');
-    setGimiDlBar(0);
+
+    await PreloadUtils.downloadFile(DL_URL, '/3dmigoto_download.zip', e => {
+      if (e.total) setGimiDlBar((e.bytes / e.total) * 100);
+    });
+    setGimiDlBar(100);
+    setGimiStatus('Complete');
   }
 
-  function extractGimi() {
+  async function extractGimi() {
     setGimiExtractStatus('Extracting');
     setGimiExtractBar(0);
-  }
-
-  function createModsFolder() {
-    setModsFolderStatus('Creating');
-    setModsFolderBar(0);
+    await SetupHelpers.extractGimi();
+    setGimiExtractBar(100);
+    setGimiExtractStatus('Complete');
   }
 
   function finishACGCAGSetup() {
-    // CONFIG.setupComplete();
-    restartApp();
+    CONFIG.setupComplete();
+    PreloadUtils.restartApp();
   }
 
   return (
@@ -52,6 +59,7 @@ export default function SetupScreen() {
         style={{display: startSetup ? 'none' : 'flex'}}
       >
         <h1>PROGRAM SETUP INSTALLER</h1>
+        <h2>This setup shows up on first installation or files are missing.</h2>
         <UIButton
           onClick={startACGCAGSetup}
           display
@@ -74,18 +82,12 @@ export default function SetupScreen() {
               progress={gimiExtractBar}
               display
             />
-            <DownloadField
-              title="Create mods folder"
-              dlStatus={modsFolderStatus}
-              progress={modsFolderBar}
-              display
-            />
           </>
         )}
       </div>
       <div
         className={styles.acgcag_setup_finish_title}
-        style={{display: finishSetup ? 'flex' : 'flex'}}
+        style={{display: finishSetup ? 'flex' : 'none'}}
       >
         <h1>Setup has finished</h1>
         <h2>Press the button below to restart the app.</h2>

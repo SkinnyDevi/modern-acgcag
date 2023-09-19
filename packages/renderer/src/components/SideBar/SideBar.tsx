@@ -1,9 +1,10 @@
 import React, {useContext, useEffect} from 'react';
-import {openGameBanana} from '#preload';
-import type {ACGIconsProps} from '../ACGIcons';
+import {PreloadUtils} from '#preload';
 import SideBarButton from './Button/SideBarButton';
-import styles from './SideBar.module.css';
 import {TitleCtx} from '@/hooks/TitleContext';
+import styles from './SideBar.module.css';
+
+import type {ACGIconsProps} from '../ACGIcons';
 
 export const ButtonIds: ACGIconsProps['iconName'][] = [
   'downloaded',
@@ -88,7 +89,7 @@ export default function SideBar() {
           iconSize={[28, 28]}
           tabTitle=""
           tabChange={false}
-          callback={openGameBanana}
+          callback={PreloadUtils.openGameBanana}
         />
         <SideBarButton
           iconName="play"

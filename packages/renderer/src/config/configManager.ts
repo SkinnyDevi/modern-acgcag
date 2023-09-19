@@ -2,7 +2,7 @@ import {ConfigHelpers} from '#preload';
 import type {ACGCAG_Config} from '#preload';
 
 export default class ConfigManager {
-  static readonly path = ConfigHelpers.CONFIG_PATH;
+  private static _path: string;
   private static instance: ConfigManager;
 
   private _has_run_setup: boolean;
@@ -10,6 +10,7 @@ export default class ConfigManager {
   private constructor(data: ACGCAG_Config) {
     this._has_run_setup = data.has_run_setup;
     ConfigManager.instance = this;
+    ConfigManager._path = ConfigHelpers.getConfigPath();
   }
 
   /**
@@ -17,6 +18,13 @@ export default class ConfigManager {
    */
   public get has_run_setup() {
     return this._has_run_setup;
+  }
+
+  /**
+   * The config's file path.
+   */
+  public static get path() {
+    return ConfigManager._path || '';
   }
 
   /**
