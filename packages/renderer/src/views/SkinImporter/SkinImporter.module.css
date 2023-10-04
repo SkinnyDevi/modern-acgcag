@@ -1,0 +1,84 @@
+.acgcag_skin_importer {
+  display: flex;
+  justify-content: center;
+}
+
+.importer_searcher {
+  background-color: var(--acgcag-bg-gray);
+  border-radius: 10px;
+  margin: auto;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  width: 75%;
+  padding: 10px;
+}
+
+@media screen and (max-width: 1100px) {
+  .importer_searcher {
+    width: 85%;
+  }
+}
+
+@media screen and (max-width: 900px) {
+  .importer_searcher {
+    width: 95%;
+  }
+}
+
+.importer_searcher > form {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.importer_input {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--acgcag-text-light);
+  width: 100%;
+}
+
+.importer_input > p {
+  font-size: 17px;
+}
+
+.importer_input > input {
+  margin-left: 25px;
+  background-color: var(--acgcag-main-beige);
+  outline: none;
+  border: none;
+  padding: 5px;
+  border-radius: 5px;
+  font-size: 16px;
+  width: 22em;
+  text-align: center;
+}
+
+.importer_input > button {
+  margin-left: 25px;
+  background-color: var(--acgcag-button-bg);
+  outline: none;
+  border: none;
+  padding: 5px 10px;
+  border-radius: 5px;
+  font-size: 15px;
+  color: var(--acgcag-button-fg);
+}
+
+.importer_input > button[disabled] {
+  color: var(--acgcag-button-fg-disabled);
+}
+
+.importer_input > button:hover:enabled {
+  background-color: var(--acgcag-button-fg);
+  color: var(--acgcag-button-bg);
+  cursor: pointer;
+}
+
+.importer_searcher > form > span {
+  color: rgb(255, 133, 133);
+  font-size: 13px;
+  text-align: right;
+}

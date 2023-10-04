@@ -6,8 +6,10 @@
 :root {
   --acgcag-bg-gray: #1d1c21;
   --acgcag-text-dark: #1d1c21;
+  --acgcag-text-light: #ece5d8;
   --acgcag-button-bg: #3d4557;
   --acgcag-button-fg: #ece5d8;
+  --acgcag-button-fg-disabled: #ada89f;
   --acgcag-bright-beige: #ece5d8;
   --acgcag-main-beige: #dad5cb;
   --acgcag-dim-beige: #b0a17d;
@@ -20,7 +22,8 @@ body {
   background: var(--acgcag-text-dark);
 }
 
-button {
+button,
+input {
   font-family: "HYWenHei-85W", "PT Sans", Calibri, Tahoma, sans-serif;
   font-weight: 500;
 }
@@ -55,4 +58,7 @@ button {
 .content {
   top: 0;
   left: 0;
+  width: 100%;
+  height: 100%;
+  margin: 0;
 }

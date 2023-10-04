@@ -18,7 +18,7 @@ function getAppPath(): string {
  * Open the Game Banana website.
  */
 function openGameBanana() {
-  shell.openExternal('https://gamebanana.com');
+  shell.openExternal('https://gamebanana.com/games/8552');
 }
 
 /**
