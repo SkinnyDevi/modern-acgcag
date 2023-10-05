@@ -1,5 +1,7 @@
 import React from 'react';
+
 import ProgressBar from '../ProgressBar/ProgressBar';
+
 import styles from './DownloadField.module.css';
 
 export type DownloadStatus = 'Waiting' | 'Downloading' | 'Complete' | 'Extracting' | 'Creating';

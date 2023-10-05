@@ -1,11 +1,13 @@
 import React, {useEffect, useState} from 'react';
+
 import {TitleCtxProvider} from './hooks/TitleContext';
 import TitleBar from './components/TitleBar/TitleBar';
 import SideBar from './components/SideBar/SideBar';
 import TabManager from './components/TabManager/TabManager';
 import ConfigManager from './config/configManager';
-import './App.css';
 import SetupScreen from './views/SetupScreen/SetupScreen';
+
+import './App.css';
 
 // const APP_VERSION = import.meta.env.VITE_APP_VERSION;
 

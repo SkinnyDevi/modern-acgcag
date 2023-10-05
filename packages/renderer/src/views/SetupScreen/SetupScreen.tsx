@@ -1,12 +1,12 @@
 import React, {useState} from 'react';
 
+import type {DownloadStatus} from '@/components/DownloadField/DownloadField';
 import {PreloadUtils, SetupHelpers} from '#preload';
 import ConfigManager from '@/config/configManager';
 import DownloadField from '@/components/DownloadField/DownloadField';
 import UIButton from '@/components/UIButton/UIButton';
-import styles from './SetupScreen.module.css';
 
-import type {DownloadStatus} from '@/components/DownloadField/DownloadField';
+import styles from './SetupScreen.module.css';
 
 const CONFIG = ConfigManager.setup();
 const DL_URL =

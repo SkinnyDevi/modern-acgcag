@@ -1,5 +1,5 @@
-import {ConfigHelpers} from '#preload';
 import type {ACGCAG_Config} from '#preload';
+import {ConfigHelpers} from '#preload';
 
 export default class ConfigManager {
   private static _path: string;
