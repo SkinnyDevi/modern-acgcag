@@ -1,9 +1,11 @@
 import React, {useContext, useEffect} from 'react';
+
 import {TitleCtx} from '@/hooks/TitleContext';
 import PaimonIcon from '@assets/paimon-icon.png';
 import ACGIcons from '../ACGIcons';
-import styles from './TitleBar.module.css';
 import ConfigManager from '@/config/configManager';
+
+import styles from './TitleBar.module.css';
 
 interface TitleBarProps {
   isSetupScreen: boolean;

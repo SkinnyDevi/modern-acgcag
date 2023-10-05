@@ -1,10 +1,15 @@
 import React, {useEffect, useState} from 'react';
-import styles from './SkinImporter.module.css';
+
 import GameBananaAPI, {GameNotSupportedError, ModRequestError} from '@/services/gamebananaApi';
+import type {GBModPost} from '@/services/gamebananaApi';
+import ModDisplayFrame from '@/components/ModDisplayFrame/ModDisplayFrame';
+
+import styles from './SkinImporter.module.css';
 
 export default function SkinImporter() {
   const [inputQuery, setInputQuery] = useState('');
   const [queryNotValid, setQueryNotValid] = useState(false);
+  const [currentMod, setCurrentMod] = useState<GBModPost | null>(null);
 
   function openFileChooser() {
     const fileInput = document.getElementById('file-importer') as HTMLInputElement;
@@ -23,8 +28,9 @@ export default function SkinImporter() {
     const query = ((event.target as HTMLFormElement)[0] as HTMLInputElement).value;
     try {
       const modInfo = await GameBananaAPI.modFromUrlOrId(query);
-      console.log(modInfo);
+      setCurrentMod(modInfo);
     } catch (error) {
+      setCurrentMod(null);
       if (error instanceof GameNotSupportedError) {
         console.log('Game Not Supported');
       }
@@ -87,6 +93,7 @@ export default function SkinImporter() {
           </div>
         </form>
       </div>
+      <ModDisplayFrame mod={currentMod} />
     </div>
   );
 }

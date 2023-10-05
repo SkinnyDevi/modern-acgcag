@@ -4,15 +4,16 @@
 }
 
 :root {
+  --acgcag-bg-gray-rgb: 29, 28, 33;
   --acgcag-bg-gray: #1d1c21;
-  --acgcag-text-dark: #1d1c21;
-  --acgcag-text-light: #ece5d8;
   --acgcag-button-bg: #3d4557;
-  --acgcag-button-fg: #ece5d8;
   --acgcag-button-fg-disabled: #ada89f;
   --acgcag-bright-beige: #ece5d8;
   --acgcag-main-beige: #dad5cb;
   --acgcag-dim-beige: #b0a17d;
+  --acgcag-button-fg: var(--acgcag-bright-beige);
+  --acgcag-text-dark: var(--acgcag-bg-gray);
+  --acgcag-text-light: var(--acgcag-dim-beige);
 }
 
 body {
@@ -26,6 +27,12 @@ button,
 input {
   font-family: "HYWenHei-85W", "PT Sans", Calibri, Tahoma, sans-serif;
   font-weight: 500;
+}
+
+h1 {
+  font-size: 22px;
+  font-weight: 500;
+  color: var(--acgcag-text-light);
 }
 
 #app {

@@ -55,8 +55,9 @@ export class GBModPost {
   private _name: string;
   private _game: string;
   private _nsfw: boolean;
-  private _category: string;
-  private _character: string;
+  private _super_category: string;
+  private _sub_category: string;
+  private _character: string | null;
   private _previewImg: string;
   private _files: FileList;
 
@@ -70,10 +71,14 @@ export class GBModPost {
     }
 
     this._nsfw = response[2] as boolean;
-    this._category = response[3] as string;
-    this._character = response[4] as string;
+    this._super_category = response[3] as string;
+    this._sub_category = response[4] as string;
+    this._super_category = this._sub_category === 'Weapons' ? 'Weapons' : this._super_category;
     this._previewImg = response[5] as string;
     this._files = response[6] as FileList;
+
+    console.log(this._super_category, this._sub_category);
+    this._character = this._super_category === 'Skins' ? this._sub_category : null;
   }
 
   public get itemId() {
@@ -92,8 +97,12 @@ export class GBModPost {
     return this._nsfw;
   }
 
-  public get category() {
-    return this._category;
+  public get super_category() {
+    return this._super_category;
+  }
+
+  public get sub_category() {
+    return this._sub_category;
   }
 
   public get character() {
