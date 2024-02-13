@@ -6,6 +6,7 @@ import type {GBModPost} from '@/services/gamebananaApi';
 import ModDisplayFrame from '@/components/ModDisplayFrame/ModDisplayFrame';
 
 import styles from './SkinImporter.module.css';
+import UIButton from '@/components/UI/Button/UIButton';
 
 export default function SkinImporter() {
   const [inputQuery, setInputQuery] = useState('');
@@ -66,12 +67,14 @@ export default function SkinImporter() {
               value={inputQuery}
               name="mod-search-str"
             />
-            <button
+            <UIButton
+              display
+              invertColors
               type="submit"
               disabled={queryNotValid}
             >
               Search
-            </button>
+            </UIButton>
           </div>
           <span style={{display: queryNotValid ? 'block' : 'none'}}>* Invalid mod URL or Code</span>
         </form>
@@ -84,13 +87,14 @@ export default function SkinImporter() {
               id="file-importer"
               onChange={e => importLocalMod(e)}
             />
-            <button
-              type="button"
+            <UIButton
+              display
+              invertColors
               onClick={openFileChooser}
               disabled
             >
               Open Archive
-            </button>
+            </UIButton>
           </div>
         </form>
       </div>

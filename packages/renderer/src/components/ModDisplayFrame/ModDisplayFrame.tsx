@@ -51,20 +51,19 @@ export default function ModDisplayFrame({mod}: ModDisplayFrameProps) {
         </div>
       </div>
       <div className={styles.download_button}>
-        <button type="button">Download</button>
-      </div>
-      <div className={styles.download_button}>
-        <button
-          type="button"
+        <UIButton
+          display
+          invertColors
           onClick={openInBrowser}
         >
           Open in browser
-        </button>
+        </UIButton>
         <UIButton
           display
-          width={200}
+          invertColors
+          type="button"
         >
-          Open in browser
+          Download
         </UIButton>
       </div>
     </div>
