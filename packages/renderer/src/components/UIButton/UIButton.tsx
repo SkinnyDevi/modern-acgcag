@@ -12,21 +12,26 @@ interface UIButtonProps {
 }
 
 export default function UIButton({
-  width = 150,
-  height = 35,
+  width,
+  height,
   type = 'button',
   onClick,
   children,
   display,
 }: UIButtonProps) {
   return (
-    <button
-      className={styles.acgcag_ui_button}
-      type={type}
-      onClick={onClick}
-      style={{width: width, height: height, display: display ? 'block' : 'none'}}
-    >
-      {children}
-    </button>
+    <div className={styles.acgcag_ui_button}>
+      <button
+        type={type}
+        onClick={onClick}
+        style={{
+          width: width ? width : 'auto',
+          height: height ? height : 'auto',
+          display: display ? 'block' : 'none',
+        }}
+      >
+        {children}
+      </button>
+    </div>
   );
 }

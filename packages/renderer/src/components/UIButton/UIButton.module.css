@@ -1,14 +1,21 @@
 .acgcag_ui_button {
-  outline: none;
-  background: var(--acgcag-button-fg);
-  color: var(--acgcag-text-dark);
-  border-radius: 10px;
-  font-size: 15px;
-  border: none;
-  margin: 5px;
+  display: flex;
+  justify-content: center;
+  margin: 10px 0;
 }
 
-.acgcag_ui_button:hover {
+.acgcag_ui_button > button {
+  background-color: var(--acgcag-button-fg);
+  outline: none;
+  border: none;
+  margin: 10px 0;
+  padding: 5px 10px;
+  border-radius: 5px;
+  font-size: 18px;
+  color: var(--acgcag-text-dark);
+}
+
+.acgcag_ui_button > button:hover {
   background: var(--acgcag-button-bg);
   color: var(--acgcag-button-fg);
   cursor: pointer;

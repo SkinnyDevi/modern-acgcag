@@ -40,7 +40,7 @@ async function createWindow() {
       preload: join(app.getAppPath(), 'packages/preload/dist/index.cjs'),
     },
     center: true,
-    minWidth: needsInstaller ? 870 : 500,
+    minWidth: needsInstaller ? 870 : 1000,
     minHeight: needsInstaller ? 700 : 600,
     width: 1300,
     height: 750,
