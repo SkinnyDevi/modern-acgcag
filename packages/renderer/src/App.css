@@ -13,7 +13,7 @@
   --acgcag-dim-beige: #b0a17d;
   --acgcag-button-fg: var(--acgcag-bright-beige);
   --acgcag-text-dark: var(--acgcag-bg-gray);
-  --acgcag-text-light: var(--acgcag-dim-beige);
+  --acgcag-text-light: var(--acgcag-main-beige);
 }
 
 body {

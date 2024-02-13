@@ -26,6 +26,7 @@ export default function ModDisplayFrame({mod}: ModDisplayFrameProps) {
           <p>Preview Image</p>
           <img
             src={mod.previewImg}
+            draggable={false}
             alt={`${mod.name} preview image`}
           />
         </div>

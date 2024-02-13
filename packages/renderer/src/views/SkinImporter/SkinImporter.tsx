@@ -4,9 +4,8 @@ import GameBananaAPI from '@/services/gamebananaApi';
 import {GameNotSupportedError, ModRequestError} from '@/services/gamebananaApi';
 import type {GBModPost} from '@/services/gamebananaApi';
 import ModDisplayFrame from '@/components/ModDisplayFrame/ModDisplayFrame';
-
-import styles from './SkinImporter.module.css';
 import UIButton from '@/components/UI/Button/UIButton';
+import styles from './SkinImporter.module.css';
 
 export default function SkinImporter() {
   const [inputQuery, setInputQuery] = useState('');
