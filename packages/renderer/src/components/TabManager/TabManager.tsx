@@ -1,6 +1,6 @@
 import React, {useContext, useEffect} from 'react';
 
-import type {ACGIconsProps} from '../ACGIcons';
+import type {ACGIconsProps} from '@UI/ACGIcons';
 import {TitleCtx} from '@/hooks/TitleContext';
 import DownloadedSkins from '@/views/DownloadedSkins/DownloadedSkins';
 import DownloadedShaderFixes from '@/views/DownloadedShaderFixes/DownloadedShaderFixes';

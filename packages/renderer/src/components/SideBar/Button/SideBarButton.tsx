@@ -1,9 +1,8 @@
 import React, {useContext} from 'react';
 
-import type {ACGIconsProps} from '@/components/ACGIcons';
-import ACGIcons from '@/components/ACGIcons';
+import ACGIcons from '@UI/ACGIcons';
+import type {ACGIconsProps} from '@UI/ACGIcons';
 import {TitleCtx} from '@/hooks/TitleContext';
-
 import styles from './SideBarButton.module.css';
 
 interface SideBarButtonProps {

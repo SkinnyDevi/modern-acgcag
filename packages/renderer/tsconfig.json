@@ -16,7 +16,7 @@
       "#preload": ["../preload/src/index"],
       "@/*": ["./src/*"],
       "@assets/*": ["./assets/*"],
-      "@/services/*": ["./src/services/*"]
+      "@UI/*": ["./src/components/UI/*"]
     },
     "lib": ["ESNext", "dom", "dom.iterable"]
   },

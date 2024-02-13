@@ -1,15 +1,15 @@
 import React from 'react';
 
-import styles from './ProgressBar.module.css';
+import styles from './UIProgressBar.module.css';
 
-interface ProgressBarProps {
+interface UIProgressBarProps {
   /**
    * Progress out of 100%.
    */
   progress?: number;
 }
 
-export default function ProgressBar({progress = 0}: ProgressBarProps) {
+export default function UIProgressBar({progress = 0}: UIProgressBarProps) {
   return (
     <div className={styles.acgcag_progress_bar}>
       <div style={{width: `${progress}%`}}></div>

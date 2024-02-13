@@ -1,4 +1,5 @@
 import React from 'react';
+
 import BananaPng from '@assets/banana-icon.png';
 
 export interface ACGIconsProps {

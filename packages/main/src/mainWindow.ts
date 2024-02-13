@@ -41,7 +41,7 @@ async function createWindow() {
     },
     center: true,
     minWidth: needsInstaller ? 870 : 1000,
-    minHeight: needsInstaller ? 700 : 600,
+    minHeight: needsInstaller ? 700 : 750,
     width: 1300,
     height: 750,
   });

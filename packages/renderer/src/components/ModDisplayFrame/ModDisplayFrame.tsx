@@ -1,7 +1,8 @@
 import React from 'react';
 
 import type {GBModPost} from '@/services/gamebananaApi';
-
+import {PreloadUtils} from '#preload';
+import UIButton from '@UI/Button/UIButton';
 import styles from './ModDisplayFrame.module.css';
 
 interface ModDisplayFrameProps {
@@ -10,6 +11,10 @@ interface ModDisplayFrameProps {
 
 export default function ModDisplayFrame({mod}: ModDisplayFrameProps) {
   if (mod === null) return <></>;
+
+  function openInBrowser() {
+    PreloadUtils.openURLInBrowser(mod!.modURL);
+  }
 
   return (
     <div className={styles.acgcag_mod_display_frame}>
@@ -47,6 +52,20 @@ export default function ModDisplayFrame({mod}: ModDisplayFrameProps) {
       </div>
       <div className={styles.download_button}>
         <button type="button">Download</button>
+      </div>
+      <div className={styles.download_button}>
+        <button
+          type="button"
+          onClick={openInBrowser}
+        >
+          Open in browser
+        </button>
+        <UIButton
+          display
+          width={200}
+        >
+          Open in browser
+        </UIButton>
       </div>
     </div>
   );

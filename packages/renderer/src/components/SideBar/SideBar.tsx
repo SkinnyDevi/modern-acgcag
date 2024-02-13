@@ -2,9 +2,8 @@ import React, {useContext, useEffect} from 'react';
 import {PreloadUtils} from '#preload';
 import SideBarButton from './Button/SideBarButton';
 import {TitleCtx} from '@/hooks/TitleContext';
+import type {ACGIconsProps} from '@UI/ACGIcons';
 import styles from './SideBar.module.css';
-
-import type {ACGIconsProps} from '../ACGIcons';
 
 export const ButtonIds: ACGIconsProps['iconName'][] = [
   'downloaded',

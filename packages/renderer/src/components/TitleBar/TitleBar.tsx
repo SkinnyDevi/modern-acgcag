@@ -2,9 +2,7 @@ import React, {useContext, useEffect} from 'react';
 
 import {TitleCtx} from '@/hooks/TitleContext';
 import PaimonIcon from '@assets/paimon-icon.png';
-import ACGIcons from '../ACGIcons';
 import ConfigManager from '@/config/configManager';
-
 import styles from './TitleBar.module.css';
 
 interface TitleBarProps {
@@ -29,14 +27,6 @@ export default function TitleBar({isSetupScreen}: TitleBarProps) {
         />
       </div>
       <h1>{isSetupScreen ? title : title.toUpperCase()}</h1>
-      {!isSetupScreen && (
-        <div className={styles.acgcag_search_icon}>
-          <ACGIcons
-            iconName="search"
-            iconSize={[30, 30]}
-          />
-        </div>
-      )}
     </header>
   );
 }

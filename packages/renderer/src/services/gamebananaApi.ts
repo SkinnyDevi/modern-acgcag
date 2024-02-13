@@ -116,6 +116,10 @@ export class GBModPost {
   public get files() {
     return this._files;
   }
+
+  public get modURL() {
+    return `${MAIN_SITE}/mods/${this._itemId}`;
+  }
 }
 
 export class GameNotSupportedError extends Error {}

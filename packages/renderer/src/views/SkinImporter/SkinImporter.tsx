@@ -1,7 +1,8 @@
 import React, {useEffect, useState} from 'react';
 
+import GameBananaAPI from '@/services/gamebananaApi';
+import {GameNotSupportedError, ModRequestError} from '@/services/gamebananaApi';
 import type {GBModPost} from '@/services/gamebananaApi';
-import GameBananaAPI, {GameNotSupportedError, ModRequestError} from '@/services/gamebananaApi';
 import ModDisplayFrame from '@/components/ModDisplayFrame/ModDisplayFrame';
 
 import styles from './SkinImporter.module.css';

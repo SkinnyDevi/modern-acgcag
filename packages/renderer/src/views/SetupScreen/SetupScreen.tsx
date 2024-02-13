@@ -1,11 +1,9 @@
 import React, {useState} from 'react';
 
-import type {DownloadStatus} from '@/components/DownloadField/DownloadField';
 import {PreloadUtils, SetupHelpers} from '#preload';
 import ConfigManager from '@/config/configManager';
-import DownloadField from '@/components/DownloadField/DownloadField';
-import UIButton from '@/components/UIButton/UIButton';
-
+import UIDownloadField, {type DownloadStatus} from '@UI/DownloadField/UIDownloadField';
+import UIButton from '@UI/Button/UIButton';
 import styles from './SetupScreen.module.css';
 
 const CONFIG = ConfigManager.setup();
@@ -55,24 +53,29 @@ export default function SetupScreen() {
         style={{display: startSetup ? 'none' : 'flex'}}
       >
         <h1>PROGRAM SETUP INSTALLER</h1>
-        <h2>This setup shows up on first installation or files are missing.</h2>
+        <h2>This setup shows up on the first installation or if files are missing.</h2>
         <UIButton
           onClick={startACGCAGSetup}
+          width={150}
+          height={35}
           display
         >
           Start Setup
         </UIButton>
       </div>
-      <div className={styles.acgcag_download_fields}>
+      <div
+        className={styles.acgcag_download_fields}
+        style={{height: finishSetup ? '40%' : '50%'}}
+      >
         {startSetup && (
           <>
-            <DownloadField
+            <UIDownloadField
               title="Download GIMI"
               dlStatus={gimiDlStatus}
               progress={gimiDlBar}
               display
             />
-            <DownloadField
+            <UIDownloadField
               title="Extract GIMI"
               dlStatus={gimiExtractStatus}
               progress={gimiExtractBar}
@@ -85,13 +88,16 @@ export default function SetupScreen() {
         className={styles.acgcag_setup_finish_title}
         style={{display: finishSetup ? 'flex' : 'none'}}
       >
-        <h1>Setup has finished</h1>
-        <h2>Press the button below to restart the app.</h2>
-        <h2>The app should close and open the Skin Manager window.</h2>
-        <h2 style={{marginBottom: '25px'}}>complete installation.</h2>
+        <h1>Setup has finished!</h1>
+        <h2>
+          Press the button below to restart the app. <br />
+          The app should close and open the Skin Manager window.
+        </h2>
         <UIButton
           display
           onClick={PreloadUtils.restartApp}
+          width={150}
+          height={35}
         >
           Finish Setup
         </UIButton>

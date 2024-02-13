@@ -15,10 +15,17 @@ function getAppPath(): string {
 }
 
 /**
+ * Open URL in browser.
+ */
+function openURLInBrowser(url: string) {
+  shell.openExternal(url);
+}
+
+/**
  * Open the Game Banana website.
  */
 function openGameBanana() {
-  shell.openExternal('https://gamebanana.com/games/8552');
+  openURLInBrowser('https://gamebanana.com/games/8552');
 }
 
 /**
@@ -73,6 +80,7 @@ const PreloadUtils = {
   downloadFile,
   rootPathlike,
   restartApp,
+  openURLInBrowser,
   openGameBanana,
 };
 

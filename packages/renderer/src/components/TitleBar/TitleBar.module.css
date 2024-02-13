@@ -6,7 +6,7 @@
   flex-direction: row;
   background: var(--acgcag-bright-beige);
   align-items: center;
-  justify-content: space-between;
+  gap: 25px;
 }
 
 .acgcag_setup_titlebar {

@@ -1,12 +1,11 @@
 import React from 'react';
 
-import ProgressBar from '../ProgressBar/ProgressBar';
-
-import styles from './DownloadField.module.css';
+import UIProgressBar from '@UI/ProgressBar/UIProgressBar';
+import styles from './UIDownloadField.module.css';
 
 export type DownloadStatus = 'Waiting' | 'Downloading' | 'Complete' | 'Extracting' | 'Creating';
 
-interface DownloadFieldProps {
+interface UIDownloadFieldProps {
   /**
    * Progress out of 100%.
    */
@@ -16,12 +15,12 @@ interface DownloadFieldProps {
   display: boolean;
 }
 
-export default function DownloadField({
+export default function UIDownloadField({
   title,
   dlStatus = 'Waiting',
   progress = 0,
   display,
-}: DownloadFieldProps) {
+}: UIDownloadFieldProps) {
   return (
     <div
       className={styles.acgcag_download_field}
@@ -32,7 +31,7 @@ export default function DownloadField({
           {title} &nbsp; | &nbsp; Status - {dlStatus}
         </p>
       </div>
-      <ProgressBar progress={progress} />
+      <UIProgressBar progress={progress} />
     </div>
   );
 }

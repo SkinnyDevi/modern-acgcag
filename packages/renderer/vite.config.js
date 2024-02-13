@@ -25,6 +25,10 @@ const config = {
         find: '@assets',
         replacement: fileURLToPath(new URL('./assets', import.meta.url)),
       },
+      {
+        find: '@UI',
+        replacement: fileURLToPath(new URL('./src/components/UI', import.meta.url)),
+      },
     ],
   },
   base: '',
