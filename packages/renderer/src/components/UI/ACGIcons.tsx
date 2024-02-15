@@ -3,7 +3,7 @@ import React from 'react';
 import BananaPng from '@assets/banana-icon.png';
 
 export interface ACGIconsProps {
-  iconName: 'search' | 'downloaded' | 'shader' | 'import' | 'file-edit' | 'banana' | 'play';
+  iconName: 'search' | 'downloaded' | 'shader' | 'import' | 'file-edit' | 'banana' | 'play' | 'mod';
   iconSize: [number, number];
 }
 
@@ -67,6 +67,13 @@ export default function ACGIcons({iconName, iconSize}: ACGIconsProps) {
     case 'banana':
       return (
         <BananaIcon
+          width={w}
+          height={h}
+        />
+      );
+    case 'mod':
+      return (
+        <ModIcon
           width={w}
           height={h}
         />
@@ -219,5 +226,123 @@ function BananaIcon({width, height}: IconSize) {
       width={width}
       height={height}
     />
+  );
+}
+
+function ModIcon({width, height}: IconSize) {
+  return (
+    <svg
+      id="fi_4783238"
+      height="512"
+      viewBox="0 0 512 512"
+      width="512"
+      xmlns="http://www.w3.org/2000/svg"
+      style={{width: `${width}px`, height: `${height}px`}}
+    >
+      <path
+        id="cube"
+        d="m331.5 192-75.5-41.2-75.5 41.2 75.5 41.2z"
+      ></path>
+      <path
+        id="cube-2"
+        d="m180.5 64 75.5 41.2 75.5-41.2-75.5-41.2z"
+        data-name="cube"
+      ></path>
+      <path
+        id="cube-3"
+        d="m338 202.2-76 41.4v98.3l76-41.4z"
+        data-name="cube"
+      ></path>
+      <path
+        id="cube-4"
+        d="m262 140.5 20 10.9v-23.4a6.14 6.14 0 0 1 3.1-5.3l52.9-28.8v-19.7l-76 41.4z"
+        data-name="cube"
+      ></path>
+      <path
+        id="cube-5"
+        d="m218 138.2-76 41.4v98.4l20-10.9v-75a6.14 6.14 0 0 1 3.1-5.3l52.9-28.8z"
+        data-name="cube"
+      ></path>
+      <path
+        id="cube-6"
+        d="m300.5 128 75.5 41.2 75.5-41.2-75.5-41.2z"
+        data-name="cube"
+      ></path>
+      <path
+        id="cube-7"
+        d="m370 421.9v-98.3l-24.7-13.5-18.1 9.9 19.7 10.7a6.14 6.14 0 0 1 3.1 5.3v75z"
+        data-name="cube"
+      ></path>
+      <path
+        id="cube-8"
+        d="m370 277.8v-98.3l-76-41.4v19.8l52.9 28.8a6.14 6.14 0 0 1 3.1 5.3v75z"
+        data-name="cube"
+      ></path>
+      <path
+        id="cube-9"
+        d="m431.8 250.7 26.2-14.2v-98.3l-76 41.4v98.3z"
+        data-name="cube"
+      ></path>
+      <path
+        id="cube-10"
+        d="m250 243.5-76-41.4v98.2l76 41.5z"
+        data-name="cube"
+      ></path>
+      <path
+        id="cube-11"
+        d="m162 336a6.14 6.14 0 0 1 3.1-5.3l19.7-10.7-18.1-9.9-24.7 13.5v98.3l20-10.9z"
+        data-name="cube"
+      ></path>
+      <path
+        id="cube-12"
+        d="m174 93.9 52.9 28.8a6.14 6.14 0 0 1 3.1 5.3v23.3l20-10.9v-24.9l-76-41.4z"
+        data-name="cube"
+      ></path>
+      <path
+        id="cube-13"
+        d="m338 346.1-76 41.5v98.3l76-41.5z"
+        data-name="cube"
+      ></path>
+      <path
+        id="cube-14"
+        d="m451.5 272-16.9-9.2-55.8 30.4a5.79 5.79 0 0 1 -5.7 0l-23.1-12.6v18.4l26 14.2z"
+        data-name="cube"
+      ></path>
+      <path
+        id="cube-15"
+        d="m250 387.6-76-41.5v98.3l76 41.5z"
+        data-name="cube"
+      ></path>
+      <path
+        id="cube-16"
+        d="m458 282.1-76 41.5v98.3l76-41.5z"
+        data-name="cube"
+      ></path>
+      <path
+        id="cube-17"
+        d="m331.4 336-16.8-9.2-55.8 30.4a5.79 5.79 0 0 1 -5.7 0l-55.8-30.4-16.8 9.2 75.5 41.2z"
+        data-name="cube"
+      ></path>
+      <path
+        id="cube-18"
+        d="m60.5 128 75.5 41.2 75.5-41.2-75.5-41.2z"
+        data-name="cube"
+      ></path>
+      <path
+        id="cube-19"
+        d="m161.9 299v-18.4l-23.1 12.6a5.79 5.79 0 0 1 -5.7 0l-55.8-30.4-16.8 9.2 75.4 41.2z"
+        data-name="cube"
+      ></path>
+      <path
+        id="cube-20"
+        d="m54 236.4 26.2 14.2 49.8 27.2v-98.3l-76-41.4z"
+        data-name="cube"
+      ></path>
+      <path
+        id="cube-21"
+        d="m130 323.6-76-41.5v98.3l76 41.5z"
+        data-name="cube"
+      ></path>
+    </svg>
   );
 }

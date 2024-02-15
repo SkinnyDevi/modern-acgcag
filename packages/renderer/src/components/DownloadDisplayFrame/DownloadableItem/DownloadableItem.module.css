@@ -1,0 +1,30 @@
+.acgcag_downloadable_file {
+  display: flex;
+  justify-content: left;
+  align-items: center;
+}
+
+.acgcag_downloadable_file > button {
+  background-color: rgba(0, 0, 0, 0);
+  outline: none;
+  border: none;
+}
+
+.acgcag_dl_btn > svg {
+  fill: var(--acgcag-button-fg);
+  filter: drop-shadow(1px 0 0 var(--acgcag-button-bg)) drop-shadow(-1px 0 0 var(--acgcag-button-bg))
+    drop-shadow(0 1px 0 var(--acgcag-button-bg)) drop-shadow(0 -1px 0 var(--acgcag-button-bg));
+}
+
+.acgcag_dl_btn > svg:hover {
+  cursor: pointer;
+  fill: var(--acgcag-button-bg);
+  filter: drop-shadow(1px 0 0 var(--acgcag-bright-beige))
+    drop-shadow(-1px 0 0 var(--acgcag-bright-beige)) drop-shadow(0 1px 0 var(--acgcag-bright-beige))
+    drop-shadow(0 -1px 0 var(--acgcag-bright-beige));
+}
+
+.acgcag_downloadable_file > span {
+  margin-left: 10px;
+  color: var(--acgcag-dim-beige);
+}

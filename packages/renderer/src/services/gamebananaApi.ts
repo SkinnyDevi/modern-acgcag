@@ -50,6 +50,17 @@ export default class GameBananaAPI {
   }
 }
 
+export type GBDownloadableFile = {
+  _bContainsExe: boolean;
+  _idRow: number;
+  _nDownloadCount: number;
+  _nFilesize: number;
+  _sDescription: string;
+  _sDownloadUrl: string;
+  _sFile: string;
+  _tsDateAdded: number;
+};
+
 export class GBModPost {
   private _itemId: number;
   private _name: string;
@@ -113,8 +124,8 @@ export class GBModPost {
     return this._previewImg;
   }
 
-  public get files() {
-    return this._files;
+  public get files(): GBDownloadableFile[] {
+    return Object.values(this._files) as unknown as GBDownloadableFile[];
   }
 
   public get modURL() {
