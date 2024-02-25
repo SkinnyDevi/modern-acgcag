@@ -74,6 +74,17 @@ export type GBDownloadableFile = {
   _tsDateAdded: number;
 };
 
+export type GBLocalInfo = {
+  modId: number;
+  nsfw: boolean;
+  name: string;
+  superCategory: string;
+  subCategory: string;
+  character: string | null;
+  previewImgUrl: string;
+  modUrl: string;
+};
+
 export class GBModPost {
   private _itemId: number;
   private _name: string;
@@ -145,7 +156,7 @@ export class GBModPost {
     return `${MAIN_SITE}/mods/${this._itemId}`;
   }
 
-  public toJSON() {
+  public toJSON(): GBLocalInfo {
     return {
       modId: this.itemId,
       nsfw: this.nsfw,

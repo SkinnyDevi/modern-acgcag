@@ -1,7 +1,14 @@
 import * as path from 'path';
 import axios from 'axios';
 import {finished} from 'stream';
-import {createWriteStream, existsSync, mkdirSync, writeFileSync} from 'fs';
+import {
+  createWriteStream,
+  existsSync,
+  mkdirSync,
+  readFileSync,
+  readdirSync,
+  writeFileSync,
+} from 'fs';
 import {shell, ipcRenderer} from 'electron';
 
 import type {AxiosRequestConfig} from 'axios';
@@ -101,6 +108,51 @@ async function downloadFile(
   });
 }
 
+/**
+ * Gets all the directories within the respective folder.
+ * @param type From which category to gather folders from.
+ * @returns A list of names of the directories. In this case. IDs from such mods/shaders.
+ */
+function getFolderContent(type: 'mod' | 'shader') {
+  const contents = readdirSync(rootPathlike(`/acgcag_mods/${type}s`), {withFileTypes: true});
+  const mods = contents.filter(dir => dir.isDirectory());
+
+  return mods.map(d => d.name);
+}
+
+function getModFolders() {
+  return getFolderContent('mod');
+}
+
+function getShaderFolders() {
+  return getFolderContent('shader');
+}
+
+/**
+ * Read the contents of a directory.
+ * @param path Path to read from. Must be a directory and exist-
+ * @returns A list of the mod's downloaded file names.
+ */
+function getModFolderFiles(path: string) {
+  if (!existsSync(rootPathlike(path))) return null;
+
+  const contents = readdirSync(rootPathlike(path), {withFileTypes: true});
+  const modFiles = contents.filter(
+    file => !file.isDirectory() && !(file.name.includes('.json') || file.name.includes('.jpg')),
+  );
+
+  return modFiles.map(f => f.name).sort();
+}
+
+/**
+ * Read the content of a file.
+ * @param path File to read from.
+ * @returns The file's content.
+ */
+function readFile(path: string) {
+  return readFileSync(rootPathlike(path), 'utf8');
+}
+
 const PreloadUtils = {
   getAppPath,
   downloadFile,
@@ -109,6 +161,10 @@ const PreloadUtils = {
   openURLInBrowser,
   openGameBanana,
   saveToFile,
+  readFile,
+  getModFolderFiles,
+  getModFolders,
+  getShaderFolders,
 };
 
 export default PreloadUtils;
