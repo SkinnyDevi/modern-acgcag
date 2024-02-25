@@ -29,10 +29,19 @@ export default function DownloadableItem({file, mod}: DownloadableItemProps) {
     setDisableShader(true);
     setDlProgress(0);
     setDownloading(true);
+    if (isMod) setModIcon('loader');
+    else setShaderIcon('loader');
 
     const dlPath = `/acgcag_mods/${type}s/${mod.itemId}/${file._sFile}`;
+    let latestProgress = 0;
     await PreloadUtils.downloadFile(file._sDownloadUrl, dlPath, e => {
-      if (e.total) setDlProgress((e.bytes / e.total) * 100);
+      if (e.total) {
+        const progress = (e.bytes / e.total) * 100;
+        if (progress > latestProgress) {
+          setDlProgress(progress);
+          latestProgress = progress;
+        }
+      }
     });
     mod.saveInfoToPath(`/acgcag_mods/${type}s/${mod.itemId}`);
     setDlProgress(100);

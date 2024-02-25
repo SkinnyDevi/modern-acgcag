@@ -12,14 +12,15 @@ export interface ACGIconsProps {
     | 'banana'
     | 'play'
     | 'mod'
-    | 'check';
+    | 'check'
+    | 'loader';
   iconSize: [number, number];
 }
 
-interface IconSize {
+type IconSize = {
   width: number;
   height: number;
-}
+};
 
 export default function ACGIcons({iconName, iconSize}: ACGIconsProps) {
   const [w, h] = iconSize;
@@ -90,6 +91,13 @@ export default function ACGIcons({iconName, iconSize}: ACGIconsProps) {
     case 'check':
       return (
         <CheckIcon
+          width={w}
+          height={h}
+        />
+      );
+    case 'loader':
+      return (
+        <LoaderIcon
           width={w}
           height={h}
         />
@@ -381,6 +389,26 @@ function CheckIcon({width, height}: IconSize) {
     l21.101,21.1l50.623-50.623c2.56-2.56,5.963-3.969,9.583-3.969c3.62,0,7.023,1.409,9.583,3.969
     C156.146,65.765,156.146,74.362,150.862,79.646z"
       ></path>
+    </svg>
+  );
+}
+
+function LoaderIcon({width, height}: IconSize) {
+  return (
+    <svg
+      id="fi_14082132"
+      height="24"
+      viewBox="0 0 24 24"
+      width="24"
+      xmlns="http://www.w3.org/2000/svg"
+      style={{width: `${width}px`, height: `${height}px`}}
+      className="acgcag_loader_icon"
+    >
+      <g>
+        <path d="m20.8 22.5h-1.2l-7-10.5 7-10.5h1.2c.3 0 .5-.2.5-.5s-.3-.5-.5-.5h-1.5-14.6-1.5c-.2 0-.5.2-.5.5s.3.5.5.5h1.2l7 10.5-7 10.5h-1.2c-.3 0-.5.2-.5.5s.2.5.5.5h1.5 14.6 1.5c.3 0 .5-.2.5-.5s-.3-.5-.5-.5zm-12.2-19.3c0-.3.2-.5.5-.5h5.9c.3 0 .5.2.5.5s-.2.5-.5.5h-5.9c-.3-.1-.5-.3-.5-.5zm1.1 1.8c0-.3.2-.5.5-.5h3.6c.2 0 .3.1.4.3s.1.3 0 .5l-1.8 2.7c-.1.1-.2.2-.4.2-.1 0-.2 0-.3-.1-.2-.1-.3-.4-.1-.7l1.3-2h-2.7c-.3.1-.5-.1-.5-.4zm-4.1 17.5 6.4-9.7 6.4 9.7z"></path>
+        <path d="m11.6 16-1.8 2.7c-.1.1-.1.3 0 .5s.2.3.4.3h3.6c.3 0 .5-.2.5-.5s-.2-.5-.5-.5h-2.7l1.3-2c.1-.2.1-.5-.1-.7-.3-.1-.6 0-.7.2z"></path>
+        <path d="m8.6 20.8c0 .3.2.5.5.5h5.9c.3 0 .5-.2.5-.5s-.2-.5-.5-.5h-5.9c-.3.1-.5.3-.5.5z"></path>
+      </g>
     </svg>
   );
 }

@@ -35,6 +35,27 @@ h1 {
   color: var(--acgcag-text-light);
 }
 
+.acgcag_loader_icon {
+  animation-name: spin;
+  animation-duration: 3000ms;
+  animation-iteration-count: infinite;
+  animation-timing-function: cubic-bezier(0.4, 0, 0.6, 1);
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  25%,
+  50% {
+    transform: rotate(180deg);
+  }
+  75%,
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
 #app {
   width: 100vw;
   height: 100vh;

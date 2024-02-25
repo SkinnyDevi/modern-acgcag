@@ -163,9 +163,7 @@ export class GBModPost {
     const imgFile = outDir + `/${this.itemId}.jpg`;
 
     PreloadUtils.saveToFile(JSON.stringify(this.toJSON()), infoFile);
-    PreloadUtils.downloadFile(this.previewImg, imgFile, e => {
-      if (e.total) console.log((e.bytes / e.total) * 100);
-    });
+    PreloadUtils.downloadFile(this.previewImg, imgFile, () => {});
   }
 }
 
