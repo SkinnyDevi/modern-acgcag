@@ -1,7 +1,7 @@
 import * as path from 'path';
 import axios from 'axios';
 import {finished} from 'stream';
-import {createWriteStream} from 'fs';
+import {createWriteStream, existsSync, mkdirSync, writeFileSync} from 'fs';
 import {shell, ipcRenderer} from 'electron';
 
 import type {AxiosRequestConfig} from 'axios';
@@ -46,6 +46,30 @@ function rootPathlike(...pathString: string[]) {
 }
 
 /**
+ * Checks if a folder exists, if not creates it recursively.
+ * @param dirName
+ */
+function checkOrCreateDir(dirName: string) {
+  const disectedOutDir = dirName.split('/');
+  disectedOutDir.pop();
+  const enclosingFolder = disectedOutDir.join('/');
+
+  if (!existsSync(rootPathlike(enclosingFolder)))
+    mkdirSync(rootPathlike(enclosingFolder), {recursive: true});
+}
+
+/**
+ * Save content to a file.
+ * @param fileContent The content to save.
+ * @param outputPath The output path to save to.
+ */
+function saveToFile(fileContent: string, outputPath: string) {
+  checkOrCreateDir(outputPath);
+
+  writeFileSync(rootPathlike(outputPath), fileContent);
+}
+
+/**
  * Download a file from the internet and store it in the app's directory.
  * @param fileUrl URL of the file to donwload.
  * @param outputLocationPath
@@ -57,6 +81,8 @@ async function downloadFile(
   outputLocationPath: string,
   bytesCallback: AxiosRequestConfig['onDownloadProgress'],
 ) {
+  checkOrCreateDir(outputLocationPath);
+
   const writer = createWriteStream(rootPathlike(outputLocationPath));
 
   const request = await axios({
@@ -82,6 +108,7 @@ const PreloadUtils = {
   restartApp,
   openURLInBrowser,
   openGameBanana,
+  saveToFile,
 };
 
 export default PreloadUtils;

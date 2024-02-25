@@ -8,6 +8,20 @@
   background-color: rgba(0, 0, 0, 0);
   outline: none;
   border: none;
+  margin: 0 10px;
+  padding: 0;
+}
+
+.acgcag_downloadable_file > button[disabled]:hover {
+  cursor: not-allowed;
+}
+
+.acgcag_downloadable_file > button:hover:enabled {
+  cursor: pointer;
+}
+
+.acgcag_download_progress {
+  width: 35vw;
 }
 
 .acgcag_dl_btn > svg {
@@ -16,7 +30,11 @@
     drop-shadow(0 1px 0 var(--acgcag-button-bg)) drop-shadow(0 -1px 0 var(--acgcag-button-bg));
 }
 
-.acgcag_dl_btn > svg:hover {
+.acgcag_dl_btn[disabled] > svg {
+  fill: var(--acgcag-dim-beige);
+}
+
+.acgcag_dl_btn:enabled > svg:hover {
   cursor: pointer;
   fill: var(--acgcag-button-bg);
   filter: drop-shadow(1px 0 0 var(--acgcag-bright-beige))
@@ -27,4 +45,8 @@
 .acgcag_downloadable_file > span {
   margin-left: 10px;
   color: var(--acgcag-dim-beige);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  max-width: 475px;
 }

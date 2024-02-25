@@ -96,6 +96,9 @@
 .mod_info_frame > p {
   margin: 15px 0;
   color: var(--acgcag-main-beige);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .mod_info_frame > p > span {

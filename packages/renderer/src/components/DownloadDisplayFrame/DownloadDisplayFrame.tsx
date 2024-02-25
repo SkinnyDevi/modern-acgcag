@@ -1,9 +1,9 @@
 import React from 'react';
 import type {GBModPost} from '@/services/gamebananaApi';
-import styles from './DownloadDisplayFrame.module.css';
 import DownloadableItem from './DownloadableItem/DownloadableItem';
 import ACGIcons from '@UI/ACGIcons';
 import UIButton from '@UI/Button/UIButton';
+import styles from './DownloadDisplayFrame.module.css';
 
 interface DownloadDisplayFrameProps {
   mod: GBModPost | null;
@@ -17,14 +17,17 @@ export default function DownloadDisplayFrame({mod, returnCallback}: DownloadDisp
     <div className={styles.acgcag_download_display_frame}>
       <h3>Choose your download</h3>
       <ul>
-        {mod.files.map(f => {
-          return (
-            <DownloadableItem
-              file={f}
-              key={f._idRow}
-            />
-          );
-        })}
+        {mod.files
+          .sort((a, b) => b._tsDateAdded - a._tsDateAdded)
+          .map(f => {
+            return (
+              <DownloadableItem
+                file={f}
+                mod={mod}
+                key={f._idRow}
+              />
+            );
+          })}
       </ul>
       <div className={styles.acgcag_download_legend}>
         <UIButton

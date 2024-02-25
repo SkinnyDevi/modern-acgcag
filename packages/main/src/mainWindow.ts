@@ -1,7 +1,7 @@
 import {app, BrowserWindow, ipcMain} from 'electron';
 import {join, resolve} from 'node:path';
-import initEventHandlers from './eventHandlers';
-import {existsSync, readFileSync, writeFileSync} from 'node:fs';
+import initEventHandlers, {checkSetupFiles} from './eventHandlers';
+import {existsSync, readdirSync, readFileSync, writeFileSync} from 'node:fs';
 
 /**
  * Checks if GIMI exists to run the setup installer if not.
@@ -12,8 +12,9 @@ function gimiChecker() {
 
   const gimiFolder = rootPathlike('/acgcag_mods/3dmigoto');
   const gimiExists = existsSync(gimiFolder);
+  const gimiNotEmpty = readdirSync(gimiFolder).length > 0;
 
-  if (gimiExists) return false;
+  if (gimiExists || gimiNotEmpty) return false;
 
   const configPath = rootPathlike('/acgcag_config/config.json');
   if (!existsSync(configPath)) return false;
@@ -29,6 +30,7 @@ function gimiChecker() {
 
 async function createWindow() {
   const needsInstaller = gimiChecker();
+  checkSetupFiles(app);
 
   const browserWindow = new BrowserWindow({
     show: false, // Use the 'ready-to-show' event to show the instantiated BrowserWindow.

@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import axios from 'axios';
+import {PreloadUtils} from '#preload';
 
 const MAIN_SITE = 'https://gamebanana.com';
 const ENDPOINT = 'https://api.gamebanana.com/Core/Item/Data';
@@ -142,6 +143,29 @@ export class GBModPost {
 
   public get modURL() {
     return `${MAIN_SITE}/mods/${this._itemId}`;
+  }
+
+  public toJSON() {
+    return {
+      modId: this.itemId,
+      nsfw: this.nsfw,
+      name: this.name,
+      superCategory: this.super_category,
+      subCategory: this.sub_category,
+      character: this.character,
+      previewImgUrl: this.previewImg,
+      modUrl: this.modURL,
+    };
+  }
+
+  public async saveInfoToPath(outDir: string) {
+    const infoFile = outDir + `/${this.itemId}.json`;
+    const imgFile = outDir + `/${this.itemId}.jpg`;
+
+    PreloadUtils.saveToFile(JSON.stringify(this.toJSON()), infoFile);
+    PreloadUtils.downloadFile(this.previewImg, imgFile, e => {
+      if (e.total) console.log((e.bytes / e.total) * 100);
+    });
   }
 }
 
