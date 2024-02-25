@@ -1,6 +1,6 @@
 import React from 'react';
 
-import BananaPng from '@assets/banana-icon.png';
+import BananaPng from '@assets/icons/banana-icon.png';
 
 export interface ACGIconsProps {
   iconName: 'search' | 'downloaded' | 'shader' | 'import' | 'file-edit' | 'banana' | 'play' | 'mod';

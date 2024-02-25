@@ -16,8 +16,8 @@ export default function DownloadableItem({file}: DownloadableItemProps) {
         className={styles.acgcag_dl_btn}
       >
         <ACGIcons
-          iconName={'mod'}
-          iconSize={[35, 35]}
+          iconName={'downloaded'}
+          iconSize={[30, 30]}
         />
       </button>
       <button

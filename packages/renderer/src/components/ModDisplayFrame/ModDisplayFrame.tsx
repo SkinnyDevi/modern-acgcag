@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 
 import type {GBModPost} from '@/services/gamebananaApi';
 import {PreloadUtils} from '#preload';
@@ -23,19 +23,16 @@ export default function ModDisplayFrame({mod}: ModDisplayFrameProps) {
     setWantsDownload(true);
   }
 
-  return (
+  useEffect(() => {
+    setWantsDownload(false);
+  }, [mod]);
+
+  return !wantsDownload ? (
     <div className={styles.acgcag_mod_display_frame}>
       <div className={styles.mod_title}>
         <h1>{mod.name}</h1>
       </div>
-      <DownloadDisplayFrame
-        display={wantsDownload}
-        mod={mod}
-      />
-      <div
-        className={styles.mod_info}
-        style={{display: wantsDownload ? 'none' : 'flex'}}
-      >
+      <div className={styles.mod_info}>
         <div className={styles.preview_img_frame}>
           <p>Preview Image</p>
           <img
@@ -85,6 +82,16 @@ export default function ModDisplayFrame({mod}: ModDisplayFrameProps) {
           Download
         </UIButton>
       </div>
+    </div>
+  ) : (
+    <div className={styles.acgcag_mod_display_frame}>
+      <div className={styles.mod_title}>
+        <h1>{mod.name}</h1>
+      </div>
+      <DownloadDisplayFrame
+        mod={mod}
+        returnCallback={() => setWantsDownload(false)}
+      />
     </div>
   );
 }

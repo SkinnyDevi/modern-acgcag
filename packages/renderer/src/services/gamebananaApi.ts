@@ -48,6 +48,18 @@ export default class GameBananaAPI {
 
     return new GBModPost(id, response);
   }
+
+  public static extractModId(url: string) {
+    try {
+      const parsed_url = new URL(url);
+      const paths = parsed_url.pathname.split('/');
+      paths.shift();
+
+      return parseInt(paths[1]);
+    } catch {
+      return null;
+    }
+  }
 }
 
 export type GBDownloadableFile = {

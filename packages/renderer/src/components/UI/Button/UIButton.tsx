@@ -12,6 +12,7 @@ interface UIButtonProps {
   display: boolean;
   children: React.ReactNode;
   textSize?: 'l' | 'm' | 's';
+  id?: string;
 }
 
 export default function UIButton({
@@ -24,6 +25,7 @@ export default function UIButton({
   display,
   invertColors = false,
   textSize = 'm',
+  id,
 }: UIButtonProps) {
   return (
     <div
@@ -40,6 +42,7 @@ export default function UIButton({
           height: height ? height : 'auto',
           display: display ? 'block' : 'none',
         }}
+        id={id}
       >
         {children}
       </button>

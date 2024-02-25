@@ -1,7 +1,7 @@
 import React, {useContext, useEffect} from 'react';
 
 import {TitleCtx} from '@/hooks/TitleContext';
-import PaimonIcon from '@assets/paimon-icon.png';
+import PaimonIcon from '@assets/icons/paimon-icon.png';
 import ConfigManager from '@/config/configManager';
 import styles from './TitleBar.module.css';
 
