@@ -5,9 +5,14 @@ import styles from './DownloadedToolbar.module.css';
 
 export default function DownloadedToolbar() {
   const [sortAscending, setSortAscending] = useState(true);
+  const [viewBlock, setViewBlock] = useState(true);
 
   function changeSort() {
     setSortAscending(!sortAscending);
+  }
+
+  function changeViewType() {
+    setViewBlock(!viewBlock);
   }
 
   return (
@@ -27,6 +32,13 @@ export default function DownloadedToolbar() {
         </UIButton>
       </div>
       <div>
+        <UIButton
+          display
+          onClick={changeViewType}
+          invertColors
+        >
+          View: {viewBlock ? 'Blocks' : 'List'}
+        </UIButton>
         <UIButton
           display
           onClick={changeSort}

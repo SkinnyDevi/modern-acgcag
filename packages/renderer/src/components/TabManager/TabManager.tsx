@@ -6,6 +6,7 @@ import DownloadedSkins from '@/views/DownloadedSkins/DownloadedSkins';
 import DownloadedShaderFixes from '@/views/DownloadedShaderFixes/DownloadedShaderFixes';
 import SkinImporter from '@/views/SkinImporter/SkinImporter';
 import FileEditor from '@/views/FileEditor/FileEditor';
+import ModDisplayFrame from '@/views/ModDisplayFrame/ModDisplayFrame';
 
 export default function TabManager() {
   const {title} = useContext(TitleCtx);
@@ -24,6 +25,8 @@ export default function TabManager() {
         return <SkinImporter />;
       case 'file edit':
         return <FileEditor />;
+      case 'mod manager':
+        return <ModDisplayFrame />;
       default:
         return <DownloadedSkins />;
     }

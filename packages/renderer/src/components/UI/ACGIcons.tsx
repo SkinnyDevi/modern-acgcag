@@ -13,7 +13,9 @@ export interface ACGIconsProps {
     | 'play'
     | 'mod'
     | 'check'
-    | 'loader';
+    | 'error'
+    | 'loader'
+    | 'trash';
   iconSize: [number, number];
 }
 
@@ -95,9 +97,23 @@ export default function ACGIcons({iconName, iconSize}: ACGIconsProps) {
           height={h}
         />
       );
+    case 'error':
+      return (
+        <ErrorIcon
+          width={w}
+          height={h}
+        />
+      );
     case 'loader':
       return (
         <LoaderIcon
+          width={w}
+          height={h}
+        />
+      );
+    case 'trash':
+      return (
+        <TrashIcon
           width={w}
           height={h}
         />
@@ -408,6 +424,43 @@ function LoaderIcon({width, height}: IconSize) {
         <path d="m20.8 22.5h-1.2l-7-10.5 7-10.5h1.2c.3 0 .5-.2.5-.5s-.3-.5-.5-.5h-1.5-14.6-1.5c-.2 0-.5.2-.5.5s.3.5.5.5h1.2l7 10.5-7 10.5h-1.2c-.3 0-.5.2-.5.5s.2.5.5.5h1.5 14.6 1.5c.3 0 .5-.2.5-.5s-.3-.5-.5-.5zm-12.2-19.3c0-.3.2-.5.5-.5h5.9c.3 0 .5.2.5.5s-.2.5-.5.5h-5.9c-.3-.1-.5-.3-.5-.5zm1.1 1.8c0-.3.2-.5.5-.5h3.6c.2 0 .3.1.4.3s.1.3 0 .5l-1.8 2.7c-.1.1-.2.2-.4.2-.1 0-.2 0-.3-.1-.2-.1-.3-.4-.1-.7l1.3-2h-2.7c-.3.1-.5-.1-.5-.4zm-4.1 17.5 6.4-9.7 6.4 9.7z"></path>
         <path d="m11.6 16-1.8 2.7c-.1.1-.1.3 0 .5s.2.3.4.3h3.6c.3 0 .5-.2.5-.5s-.2-.5-.5-.5h-2.7l1.3-2c.1-.2.1-.5-.1-.7-.3-.1-.6 0-.7.2z"></path>
         <path d="m8.6 20.8c0 .3.2.5.5.5h5.9c.3 0 .5-.2.5-.5s-.2-.5-.5-.5h-5.9c-.3.1-.5.3-.5.5z"></path>
+      </g>
+    </svg>
+  );
+}
+
+function ErrorIcon({width, height}: IconSize) {
+  return (
+    <svg
+      height="512"
+      viewBox="0 0 24 24"
+      width="512"
+      xmlns="http://www.w3.org/2000/svg"
+      style={{width: `${width}px`, height: `${height}px`}}
+    >
+      <g
+        id="Layer_2"
+        data-name="Layer 2"
+      >
+        <path d="m12 1a11 11 0 1 0 11 11 11.013 11.013 0 0 0 -11-11zm4.242 13.829a1 1 0 1 1 -1.414 1.414l-2.828-2.829-2.828 2.829a1 1 0 0 1 -1.414-1.414l2.828-2.829-2.828-2.829a1 1 0 1 1 1.414-1.414l2.828 2.829 2.828-2.829a1 1 0 1 1 1.414 1.414l-2.828 2.829z"></path>
+      </g>
+    </svg>
+  );
+}
+
+function TrashIcon({width, height}: IconSize) {
+  return (
+    <svg
+      id="fi_4662651"
+      height="512"
+      viewBox="0 0 512 512"
+      width="512"
+      xmlns="http://www.w3.org/2000/svg"
+      style={{width: `${width}px`, height: `${height}px`}}
+    >
+      <g id="_x39_4.Trash">
+        <path d="m459.125 37.25h-117.188l-9.18-18.262c-3.966-7.963-12.1-12.995-20.996-12.988h-111.62c-8.88-.034-16.998 5.011-20.898 12.988l-9.18 18.262h-117.188c-8.629 0-15.625 6.996-15.625 15.625v31.25c0 8.629 6.996 15.625 15.625 15.625h406.25c8.629 0 15.625-6.996 15.625-15.625v-31.25c0-8.629-6.996-15.625-15.625-15.625z"></path>
+        <path d="m89.203 462.055c1.547 24.7 22.029 43.942 46.777 43.945h240.04c24.748-.003 45.231-19.245 46.777-43.945l20.703-331.055h-375z"></path>
       </g>
     </svg>
   );

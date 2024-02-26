@@ -1,6 +1,7 @@
 import React, {useEffect, useState} from 'react';
 
 import {TitleCtxProvider} from './hooks/TitleContext';
+import {ModDisplayCtxProvider} from './hooks/ModDisplayContext';
 import TitleBar from './components/TitleBar/TitleBar';
 import SideBar from './components/SideBar/SideBar';
 import TabManager from './components/TabManager/TabManager';
@@ -23,10 +24,12 @@ const App = () => {
     <TitleCtxProvider>
       <TitleBar isSetupScreen={!loadApp} />
       {loadApp ? (
-        <div className="content-divider">
-          <SideBar />
-          <TabManager />
-        </div>
+        <ModDisplayCtxProvider>
+          <div className="content-divider">
+            <SideBar />
+            <TabManager />
+          </div>
+        </ModDisplayCtxProvider>
       ) : (
         <SetupScreen />
       )}

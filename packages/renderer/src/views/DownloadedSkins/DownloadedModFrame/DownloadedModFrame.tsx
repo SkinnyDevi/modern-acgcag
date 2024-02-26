@@ -1,7 +1,9 @@
-import React from 'react';
+import React, {useContext} from 'react';
 
 import type {GBLocalMod} from '@/services/localModManager';
+import {TitleCtx} from '@/hooks/TitleContext';
 import UIButton from '@UI/Button/UIButton';
+import {ModDisplayCtx} from '@/hooks/ModDisplayContext';
 import styles from './DownloadedModFrame.module.css';
 
 interface DownloadedModFrameProps {
@@ -9,8 +11,16 @@ interface DownloadedModFrameProps {
 }
 
 export default function DownloadedModFrame({mod}: DownloadedModFrameProps) {
+  const {setTitle} = useContext(TitleCtx);
+  const {setMod} = useContext(ModDisplayCtx);
+
   function capitalize(s: string) {
     return s.charAt(0).toUpperCase() + s.slice(1);
+  }
+
+  function moveToDisplayFrame() {
+    setMod(mod);
+    setTitle('mod manager');
   }
 
   return (
@@ -34,7 +44,12 @@ export default function DownloadedModFrame({mod}: DownloadedModFrameProps) {
           </p>
         </div>
       </div>
-      <UIButton display>Manage</UIButton>
+      <UIButton
+        display
+        onClick={moveToDisplayFrame}
+      >
+        Manage
+      </UIButton>
     </div>
   );
 }
