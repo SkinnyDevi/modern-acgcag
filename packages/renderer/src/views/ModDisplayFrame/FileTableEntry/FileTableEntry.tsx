@@ -1,27 +1,40 @@
 import React, {useState} from 'react';
 
+import type {GBLocalMod} from '@/services/localModManager';
 import ACGIcons from '@/components/UI/ACGIcons';
 import type {ACGIconsProps} from '@/components/UI/ACGIcons';
 import type {FileEntry} from '../ModDisplayFrame';
 
 interface FileTableEntryProps {
   file: FileEntry;
+  mod: GBLocalMod;
+  isInstalled: boolean;
   onDelete: () => void;
+  onActivationChange: () => void;
 }
 
-export default function FileTableEntry({file, onDelete}: FileTableEntryProps) {
-  const [icon, setIcon] = useState<ACGIconsProps['iconName']>('error');
+export default function FileTableEntry({
+  file,
+  mod,
+  isInstalled,
+  onDelete,
+  onActivationChange,
+}: FileTableEntryProps) {
+  const [icon, setIcon] = useState<ACGIconsProps['iconName']>(isInstalled ? 'check' : 'error');
   const [disableBtn, setDisableBtn] = useState(false);
 
-  function handleActivation() {
+  async function handleActivation() {
     setDisableBtn(true);
     setIcon('loader');
 
+    if (!file.isInstalled) await mod.installFileEntry(file);
+    else mod.uninstallFileEntry(file);
     file.isInstalled = !file.isInstalled;
     setTimeout(() => {
+      onActivationChange();
       setDisableBtn(false);
       setIcon(file.isInstalled ? 'check' : 'error');
-    }, 2000);
+    }, 1000);
   }
 
   return (

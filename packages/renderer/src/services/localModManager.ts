@@ -1,5 +1,12 @@
 import type {GBLocalInfo} from './gamebananaApi';
-import {PreloadUtils} from '#preload';
+import {PreloadUtils, Extractors} from '#preload';
+
+const INSTALL_PATH = '/acgcag_mods/3dmigoto/Mods';
+
+type FileEntry = {
+  fileName: string;
+  isInstalled: boolean;
+};
 
 export class GBLocalMod {
   private _itemId: number;
@@ -12,15 +19,23 @@ export class GBLocalMod {
   private _previewImgLocal: string;
   private _files: string[];
   private _modURL: string;
+  private _modPath: string;
 
   public static fromPath(path: string) {
     const file = PreloadUtils.readFile(path);
     return new GBLocalMod(JSON.parse(file) as GBLocalInfo);
   }
 
+  private getLocalFiles() {
+    const files = PreloadUtils.getModFolderFiles(this._modPath);
+    if (files === null) throw new Error('Failed to get mod file list');
+
+    return files;
+  }
+
   public constructor(localInfo: GBLocalInfo) {
     this._itemId = localInfo.modId;
-    const modPath = `/acgcag_mods/mods/${this._itemId}`;
+    this._modPath = `/acgcag_mods/mods/${this._itemId}`;
 
     this._name = localInfo.name;
     this._nsfw = localInfo.nsfw;
@@ -29,12 +44,9 @@ export class GBLocalMod {
     this._super_category = this._sub_category === 'Weapons' ? 'Weapons' : this._super_category;
     this._character = this._super_category === 'Skins' ? this._sub_category : null;
     this._previewImg = localInfo.previewImgUrl;
-    this._previewImgLocal = PreloadUtils.rootPathlike(`${modPath}/${this._itemId}.jpg`);
+    this._previewImgLocal = PreloadUtils.rootPathlike(`${this._modPath}/${this._itemId}.jpg`);
     this._modURL = localInfo.modUrl;
-
-    const files = PreloadUtils.getModFolderFiles(modPath);
-    if (files !== null) this._files = files;
-    else throw new Error('Failed to get mod file list');
+    this._files = this.getLocalFiles();
   }
 
   public get itemId() {
@@ -84,5 +96,42 @@ export class GBLocalMod {
       previewImgUrl: this.previewImg,
       modUrl: this._modURL,
     };
+  }
+
+  public getInstalledMods(): FileEntry[] {
+    const entries: FileEntry[] = [];
+    for (const f of this._files) {
+      entries.push({fileName: f, isInstalled: false});
+    }
+
+    const installed = PreloadUtils.getFolderContents(`/acgcag_mods/3dmigoto/Mods/${this._itemId}`);
+    if (installed === null) return entries;
+
+    for (const ent of entries) {
+      ent.isInstalled = installed.includes(ent.fileName);
+    }
+
+    return entries;
+  }
+
+  public async installFileEntry(entry: FileEntry) {
+    if (entry.isInstalled) throw new Error('Mod file is already installed.');
+
+    const zipPath = [this._modPath, entry.fileName];
+    const installPath = [INSTALL_PATH, this._itemId, entry.fileName];
+    await Extractors.zipExtractor(zipPath.join('/'), installPath.join('/'));
+  }
+
+  public uninstallFileEntry(entry: FileEntry) {
+    if (!entry.isInstalled) throw new Error('Mod is not installed.');
+
+    const installPath = [INSTALL_PATH, this._itemId, entry.fileName];
+    PreloadUtils.removeDirOrFile(installPath.join('/'));
+  }
+
+  public deleteLocalFileEntry(entry: FileEntry) {
+    const entryPath = [this._modPath, entry.fileName];
+    PreloadUtils.removeDirOrFile(entryPath.join('/'));
+    this._files = this.getLocalFiles();
   }
 }

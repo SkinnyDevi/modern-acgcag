@@ -28,21 +28,15 @@ export default function ModDisplayFrame() {
   }
 
   function deleteEntry(fe: FileEntry) {
-    const modlist = [...fileList];
-    const entry = fileList.indexOf(fe);
-    modlist.splice(entry, 1);
+    if (!mod) return;
 
-    setFileList(modlist);
+    mod.deleteLocalFileEntry(fe);
+    setFileList(mod.getInstalledMods());
   }
 
   useEffect(() => {
     if (mod === null) return;
-
-    const entries: FileEntry[] = [];
-    for (const f of mod.files) {
-      entries.push({fileName: f, isInstalled: false});
-    }
-    setFileList(entries);
+    setFileList(mod.getInstalledMods());
   }, [mod]);
 
   return mod !== null ? (
@@ -83,17 +77,22 @@ export default function ModDisplayFrame() {
           <h3>Mod Items</h3>
           <table>
             <thead>
-              <th>Name</th>
-              <th>Enabled</th>
-              <th>Remove</th>
+              <tr>
+                <th>Name</th>
+                <th>Enabled</th>
+                <th>Remove</th>
+              </tr>
             </thead>
             <tbody>
               {fileList.map(f => {
                 return (
                   <FileTableEntry
-                    file={f}
                     key={f.fileName}
+                    file={f}
+                    isInstalled={f.isInstalled}
                     onDelete={() => deleteEntry(f)}
+                    onActivationChange={() => setFileList(mod.getInstalledMods())}
+                    mod={mod}
                   />
                 );
               })}

@@ -7,6 +7,7 @@ import {
   mkdirSync,
   readFileSync,
   readdirSync,
+  rmSync,
   writeFileSync,
 } from 'fs';
 import {shell, ipcRenderer} from 'electron';
@@ -109,23 +110,30 @@ async function downloadFile(
 }
 
 /**
- * Gets all the directories within the respective folder.
- * @param type From which category to gather folders from.
- * @returns A list of names of the directories. In this case. IDs from such mods/shaders.
+ * Get contents of the folder.
+ * @param path Path to get the contents from.
+ * @param onlyDirs Retrieve only the name of directories.
+ * @returns Name entries of the contents found.
  */
-function getFolderContent(type: 'mod' | 'shader') {
-  const contents = readdirSync(rootPathlike(`/acgcag_mods/${type}s`), {withFileTypes: true});
-  const mods = contents.filter(dir => dir.isDirectory());
+function getFolderContents(path: string, onlyDirs: boolean = false) {
+  try {
+    const contents = readdirSync(rootPathlike(path), {withFileTypes: true});
 
-  return mods.map(d => d.name);
+    let dirContents = contents;
+    if (onlyDirs) dirContents = contents.filter(ent => ent.isDirectory());
+
+    return dirContents.map(x => x.name);
+  } catch {
+    return null;
+  }
 }
 
 function getModFolders() {
-  return getFolderContent('mod');
+  return getFolderContents('/acgcag_mods/mods');
 }
 
 function getShaderFolders() {
-  return getFolderContent('shader');
+  return getFolderContents('/acgcag_mods/shaders');
 }
 
 /**
@@ -153,6 +161,14 @@ function readFile(path: string) {
   return readFileSync(rootPathlike(path), 'utf8');
 }
 
+/**
+ * Removes a directory/file, even if it is not empty.
+ * @param path Path to directory to remove.
+ */
+function removeDirOrFile(path: string) {
+  rmSync(rootPathlike(path), {recursive: true, force: true, retryDelay: 200, maxRetries: 5});
+}
+
 const PreloadUtils = {
   getAppPath,
   downloadFile,
@@ -165,6 +181,8 @@ const PreloadUtils = {
   getModFolderFiles,
   getModFolders,
   getShaderFolders,
+  getFolderContents,
+  removeDirOrFile,
 };
 
 export default PreloadUtils;

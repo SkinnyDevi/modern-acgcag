@@ -11,6 +11,7 @@ export default function DownloadedSkins() {
 
   useEffect(() => {
     const modIds = PreloadUtils.getModFolders();
+    if (modIds === null) return;
 
     const mods: GBLocalMod[] = [];
     for (const modId of modIds) {
