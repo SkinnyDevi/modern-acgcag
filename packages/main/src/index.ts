@@ -1,4 +1,4 @@
-import {app} from 'electron';
+import {app, protocol, net} from 'electron';
 import './security-restrictions';
 import {restoreOrCreateWindow} from '/@/mainWindow';
 import {platform} from 'node:process';
@@ -32,6 +32,16 @@ app.on('window-all-closed', () => {
  * @see https://www.electronjs.org/docs/latest/api/app#event-activate-macos Event: 'activate'.
  */
 app.on('activate', restoreOrCreateWindow);
+
+app.whenReady().then(async () => {
+  const protocolName = 'modern-acgcag-files';
+
+  protocol.handle(protocolName, request => {
+    const path = decodeURIComponent(request.url.substring(protocolName.length + 3));
+
+    return net.fetch(path);
+  });
+});
 
 /**
  * Create the application window when the background process is ready.

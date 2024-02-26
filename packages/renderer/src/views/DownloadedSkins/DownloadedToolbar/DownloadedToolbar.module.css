@@ -1,0 +1,13 @@
+.acgcag_downloaded_toolbar {
+  display: flex;
+  background-color: var(--acgcag-bg-gray);
+  justify-content: space-between;
+  border-radius: 10px;
+  margin: 10px;
+  width: 97%;
+}
+
+.acgcag_downloaded_toolbar > div {
+  display: flex;
+  margin: 0 10px;
+}

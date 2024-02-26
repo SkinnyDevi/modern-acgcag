@@ -1,10 +1,14 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 
 import {PreloadUtils} from '#preload';
-import styles from './DownloadedSkins.module.css';
 import {GBLocalMod} from '@/services/localModManager';
+import DownloadedToolbar from './DownloadedToolbar/DownloadedToolbar';
+import DownloadedModFrame from './DownloadedModFrame/DownloadedModFrame';
+import styles from './DownloadedSkins.module.css';
 
 export default function DownloadedSkins() {
+  const [modList, setModList] = useState<GBLocalMod[] | null>(null);
+
   useEffect(() => {
     const modIds = PreloadUtils.getModFolders();
 
@@ -13,12 +17,27 @@ export default function DownloadedSkins() {
       mods.push(GBLocalMod.fromPath(`/acgcag_mods/mods/${modId}/${modId}.json`));
     }
 
-    console.log(mods);
+    setModList(mods);
   }, []);
 
   return (
     <div className={styles.acgcag_downloaded_view}>
-      <p>DOWNLOADED</p>
+      <DownloadedToolbar />
+
+      <div className={styles.acgcag_mod_container}>
+        {modList !== null ? (
+          modList.map(m => {
+            return (
+              <DownloadedModFrame
+                key={m.itemId}
+                mod={m}
+              />
+            );
+          })
+        ) : (
+          <></>
+        )}
+      </div>
     </div>
   );
 }
