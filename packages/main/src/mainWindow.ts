@@ -12,9 +12,10 @@ function gimiChecker() {
 
   const gimiFolder = rootPathlike('/acgcag_mods/3dmigoto');
   const gimiExists = existsSync(gimiFolder);
-  const gimiNotEmpty = readdirSync(gimiFolder).length > 0;
+  if (!gimiExists) return false;
 
-  if (gimiExists || gimiNotEmpty) return false;
+  const gimiNotEmpty = readdirSync(gimiFolder).length > 0;
+  if (gimiNotEmpty) return false;
 
   const configPath = rootPathlike('/acgcag_config/config.json');
   if (!existsSync(configPath)) return false;

@@ -1,14 +1,22 @@
 import type {ACGCAG_Config} from '#preload';
 import {ConfigHelpers} from '#preload';
 
+const DEFAULT_CONFIG: ACGCAG_Config = {
+  has_run_setup: false,
+  // genshin_impact_path: 'C:\\Program Files\\Genshin Impact\\Genshin Impact Game\\Genshin Impact.exe',
+  genshin_impact_path: '"C:\\Users\\Felix MV\\Desktop\\ㅤㅤㅤㅤㅤ\\Genshin Impact.lnk"',
+};
+
 export default class ConfigManager {
   private static _path: string;
   private static instance: ConfigManager;
 
   private _has_run_setup: boolean;
+  private _genshin_impact_path: string;
 
   private constructor(data: ACGCAG_Config) {
     this._has_run_setup = data.has_run_setup;
+    this._genshin_impact_path = data.genshin_impact_path;
     ConfigManager.instance = this;
     ConfigManager._path = ConfigHelpers.getConfigPath();
   }
@@ -48,6 +56,7 @@ export default class ConfigManager {
   public info(): ACGCAG_Config {
     return {
       has_run_setup: this._has_run_setup,
+      genshin_impact_path: this._genshin_impact_path,
     };
   }
 
@@ -61,20 +70,36 @@ export default class ConfigManager {
   }
 
   /**
+   * Validates the config input and fills out configs that are `undefined`
+   * @param data Config to validate
+   * @returns Validated config
+   */
+  private static validate(data: ACGCAG_Config) {
+    const obj = JSON.parse(JSON.stringify(data));
+    const objDefaults = Object.create(DEFAULT_CONFIG);
+
+    for (const key in objDefaults) {
+      if (typeof obj[key] === 'undefined') {
+        obj[key] = objDefaults[key];
+      }
+    }
+
+    ConfigHelpers.saveConfig(obj);
+    return obj as ACGCAG_Config;
+  }
+
+  /**
    * Creates or gets an existing config file for ACGCAG.
    * @returns A `ConfigManager` instance with the appropiate configurations.
    */
   public static createOrRetrieveConfigFile() {
     if (ConfigHelpers.configExists()) {
-      const data = ConfigHelpers.readConfigFile();
+      let data = ConfigHelpers.readConfigFile();
+      data = this.validate(data);
       return new ConfigManager(data);
     }
 
-    const defaults: ACGCAG_Config = {
-      has_run_setup: false,
-    };
-
-    const manager = new ConfigManager(defaults);
+    const manager = new ConfigManager(DEFAULT_CONFIG);
     manager.save();
 
     return manager;

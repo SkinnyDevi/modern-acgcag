@@ -3,8 +3,8 @@ import React, {useEffect, useState} from 'react';
 import type {GBModPost} from '@/services/gamebananaApi';
 import {PreloadUtils} from '#preload';
 import UIButton from '@UI/Button/UIButton';
+import DownloadDisplayFrame from '@/views/SkinImporter/DownloadDisplayFrame/DownloadDisplayFrame';
 import styles from './ModDisplayFrame.module.css';
-import DownloadDisplayFrame from '../DownloadDisplayFrame/DownloadDisplayFrame';
 
 interface ModDisplayFrameProps {
   mod: GBModPost | null;

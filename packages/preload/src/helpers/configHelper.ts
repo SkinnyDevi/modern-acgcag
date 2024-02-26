@@ -2,8 +2,12 @@ import * as fs from 'fs';
 
 import PreloadUtils from '../utils';
 
+const CONFIG_DIR = '/acgcag_config';
+const CONFIG_FILE_PATH = CONFIG_DIR + '/config.json';
+
 export type ACGCAG_Config = {
   has_run_setup: boolean;
+  genshin_impact_path: string;
 };
 
 /**
@@ -11,7 +15,7 @@ export type ACGCAG_Config = {
  * @returns File path as `string`.
  */
 function getConfigPath() {
-  return PreloadUtils.rootPathlike('/acgcag_config');
+  return PreloadUtils.rootPathlike(CONFIG_FILE_PATH);
 }
 
 /**
@@ -25,8 +29,22 @@ function pathExists(path: string) {
 /**
  * Check if the config file exists.
  */
+function configFileExists() {
+  return pathExists(PreloadUtils.rootPathlike(CONFIG_FILE_PATH));
+}
+
+/**
+ * Check if the config path exists.
+ */
+function configPathExists() {
+  return pathExists(PreloadUtils.rootPathlike(CONFIG_DIR));
+}
+
+/**
+ * Checks if both path and file exist.
+ */
 function configExists() {
-  return pathExists(getConfigPath());
+  return configPathExists() && configFileExists();
 }
 
 /**
@@ -34,9 +52,9 @@ function configExists() {
  * @param data The data to be stored.
  */
 function saveConfig(data: ACGCAG_Config) {
-  if (!configExists()) fs.mkdirSync(getConfigPath());
+  if (!configPathExists()) fs.mkdirSync(PreloadUtils.rootPathlike(CONFIG_DIR));
 
-  fs.writeFileSync(getConfigPath() + '/config.json', JSON.stringify(data), 'utf-8');
+  fs.writeFileSync(getConfigPath(), JSON.stringify(data), 'utf-8');
 }
 
 /**
@@ -44,7 +62,7 @@ function saveConfig(data: ACGCAG_Config) {
  * @returns A Config object with it's properties.
  */
 function readConfigFile(): ACGCAG_Config {
-  const raw = fs.readFileSync(getConfigPath() + '/config.json', 'utf-8');
+  const raw = fs.readFileSync(getConfigPath(), 'utf-8');
   return JSON.parse(raw);
 }
 
@@ -53,7 +71,11 @@ const ConfigHelpers = {
   saveConfig,
   pathExists,
   readConfigFile,
+  configFileExists,
+  configPathExists,
   configExists,
+  CONFIG_DIR,
+  CONFIG_FILE_PATH,
 };
 
 export default ConfigHelpers;

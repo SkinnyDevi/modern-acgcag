@@ -1,5 +1,6 @@
 import * as path from 'path';
 import axios from 'axios';
+import type {AxiosRequestConfig} from 'axios';
 import {finished} from 'stream';
 import {
   createWriteStream,
@@ -11,8 +12,7 @@ import {
   writeFileSync,
 } from 'fs';
 import {shell, ipcRenderer} from 'electron';
-
-import type {AxiosRequestConfig} from 'axios';
+import ConfigHelpers from './helpers/configHelper';
 
 /**
  * Request the app path from the main process.
@@ -27,6 +27,16 @@ function getAppPath(): string {
  */
 function openURLInBrowser(url: string) {
   shell.openExternal(url);
+}
+
+/**
+ * Run 3DMIGOTO executable.
+ */
+function run3dmigoto() {
+  shell.openPath(rootPathlike('/acgcag_mods/3dmigoto/3DMigoto Loader.exe'));
+  setTimeout(() => {
+    shell.openPath(ConfigHelpers.readConfigFile().genshin_impact_path);
+  }, 5000);
 }
 
 /**
@@ -171,6 +181,7 @@ function removeDirOrFile(path: string) {
 
 const PreloadUtils = {
   getAppPath,
+  run3dmigoto,
   downloadFile,
   rootPathlike,
   restartApp,
