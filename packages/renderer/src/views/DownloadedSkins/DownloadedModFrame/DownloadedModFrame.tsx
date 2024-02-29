@@ -47,6 +47,7 @@ export default function DownloadedModFrame({mod}: DownloadedModFrameProps) {
       <UIButton
         display
         onClick={moveToDisplayFrame}
+        invertColors
       >
         Manage
       </UIButton>

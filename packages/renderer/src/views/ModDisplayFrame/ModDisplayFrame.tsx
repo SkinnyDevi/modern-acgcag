@@ -40,7 +40,7 @@ export default function ModDisplayFrame() {
   }, [mod]);
 
   return mod !== null ? (
-    <div>
+    <div className={styles.acgcag_localmod_displayer}>
       <div className={toolbarStyles.acgcag_downloaded_toolbar}>
         <div>
           <UIButton

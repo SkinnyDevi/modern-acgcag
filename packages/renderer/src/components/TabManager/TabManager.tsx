@@ -8,6 +8,7 @@ import SkinImporter from '@/views/SkinImporter/SkinImporter';
 import FileEditor from '@/views/FileEditor/FileEditor';
 import ModDisplayFrame from '@/views/ModDisplayFrame/ModDisplayFrame';
 import RunLauncherView from '@/views/RunLauncher/RunLauncherView';
+import SettingsView from '@/views/Settings/SettingsView';
 
 export default function TabManager() {
   const {title} = useContext(TitleCtx);
@@ -30,6 +31,8 @@ export default function TabManager() {
         return <ModDisplayFrame />;
       case '3dmigoto launched':
         return <RunLauncherView />;
+      case 'settings':
+        return <SettingsView />;
       default:
         return <DownloadedSkins />;
     }

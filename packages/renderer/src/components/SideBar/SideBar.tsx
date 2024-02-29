@@ -14,21 +14,21 @@ export const ButtonIds: ACGIconsProps['iconName'][] = [
   'play',
 ];
 
+export function enableAllSidebarButtons() {
+  for (const b of ButtonIds) {
+    const element = document.getElementById(`acgcag-sidebar-btn-${b}`);
+    if (element !== null) {
+      const btn = element as HTMLButtonElement;
+      btn.disabled = false;
+    }
+  }
+}
+
 export default function SideBar() {
   const {title} = useContext(TitleCtx);
 
-  function enableAll() {
-    for (const b of ButtonIds) {
-      const element = document.getElementById(`acgcag-sidebar-btn-${b}`);
-      if (element !== null) {
-        const btn = element as HTMLButtonElement;
-        btn.disabled = false;
-      }
-    }
-  }
-
   function selectBtn(name: ACGIconsProps['iconName']) {
-    enableAll();
+    enableAllSidebarButtons();
 
     const element = document.getElementById(`acgcag-sidebar-btn-${name}`);
 

@@ -1,3 +1,9 @@
+.acgcag_localmod_displayer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
 .acgcag_mod_display_frame {
   display: flex;
   margin: 0 10px;

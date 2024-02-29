@@ -47,3 +47,20 @@
 .acgcag_search_icon {
   padding-right: 20px;
 }
+
+.acgcag_settings_button {
+  margin-left: auto;
+  margin-right: 20px;
+  background-color: transparent;
+  border: none;
+  padding: 0;
+}
+
+.acgcag_settings_button > svg {
+  fill: var(--acgcag-button-bg);
+}
+
+.acgcag_settings_button > svg:hover {
+  fill: var(--acgcag-dim-beige);
+  cursor: pointer;
+}
