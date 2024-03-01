@@ -36,6 +36,20 @@ h1 {
   color: var(--acgcag-text-light);
 }
 
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background-color: rgba(var(--acgcag-bg-gray-rgb), 0.9);
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: var(--acgcag-bright-beige);
+  border-radius: 10px;
+}
+
 .acgcag_loader_icon {
   animation-name: spin;
   animation-duration: 3000ms;

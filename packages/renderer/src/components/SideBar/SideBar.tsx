@@ -81,6 +81,11 @@ export default function SideBar() {
           iconSize={[34, 34]}
           tabTitle="File Edit"
         />
+        <SideBarButton
+          iconName="mod"
+          iconSize={[32, 32]}
+          tabTitle="Extra Tools"
+        />
       </div>
       <div className={styles.acgcag_sidebar_end_btns}>
         <SideBarButton

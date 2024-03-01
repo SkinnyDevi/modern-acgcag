@@ -85,19 +85,6 @@
   overflow-x: hidden;
 }
 
-.acgcag_display_info_files > table::-webkit-scrollbar {
-  width: 10px;
-}
-
-.acgcag_display_info_files > table::-webkit-scrollbar-track {
-  background-color: rgba(var(--acgcag-bg-gray-rgb), 0.9);
-}
-
-.acgcag_display_info_files > table::-webkit-scrollbar-thumb {
-  background-color: var(--acgcag-bright-beige);
-  border-radius: 10px;
-}
-
 .acgcag_display_info_files > table > thead > tr > th {
   color: var(--acgcag-main-beige);
   font-weight: 500;

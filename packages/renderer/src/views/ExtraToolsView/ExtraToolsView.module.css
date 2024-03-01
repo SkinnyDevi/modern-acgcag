@@ -1,0 +1,9 @@
+.acgcag_extras_refresh {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.acgcag_extras_refresh > svg {
+  fill: var(--acgcag-dim-beige);
+}

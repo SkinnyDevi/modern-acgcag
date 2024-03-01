@@ -15,15 +15,3 @@
   flex-wrap: wrap;
   overflow-y: auto;
 }
-
-.acgcag_mod_container::-webkit-scrollbar {
-  width: 10px;
-}
-
-.acgcag_mod_container::-webkit-scrollbar-track {
-  background-color: rgba(var(--acgcag-bg-gray-rgb), 0.9);
-}
-
-.acgcag_mod_container::-webkit-scrollbar-thumb {
-  background-color: var(--acgcag-bright-beige);
-}

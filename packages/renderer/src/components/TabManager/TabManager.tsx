@@ -9,6 +9,7 @@ import FileEditor from '@/views/FileEditor/FileEditor';
 import ModDisplayFrame from '@/views/ModDisplayFrame/ModDisplayFrame';
 import RunLauncherView from '@/views/RunLauncher/RunLauncherView';
 import SettingsView from '@/views/Settings/SettingsView';
+import ExtraToolsView from '@/views/ExtraToolsView/ExtraToolsView';
 
 export default function TabManager() {
   const {title} = useContext(TitleCtx);
@@ -33,6 +34,8 @@ export default function TabManager() {
         return <RunLauncherView />;
       case 'settings':
         return <SettingsView />;
+      case 'extra tools':
+        return <ExtraToolsView />;
       default:
         return <DownloadedSkins />;
     }
