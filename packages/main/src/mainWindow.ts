@@ -1,6 +1,7 @@
 import {app, BrowserWindow, ipcMain} from 'electron';
 import {join, resolve} from 'node:path';
-import initEventHandlers, {checkSetupFiles, gimiChecker, writeToConfig} from './eventHandlers';
+import initEventHandlers, {checkSetupFiles} from './eventHandlers';
+import {gimiChecker, writeToConfig} from './utils';
 
 async function createWindow() {
   checkSetupFiles(app);

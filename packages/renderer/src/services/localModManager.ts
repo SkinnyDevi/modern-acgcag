@@ -1,4 +1,4 @@
-import type {GBLocalInfo} from './gamebananaApi';
+import type {GBLocalModInfo} from './gamebananaApi';
 import {PreloadUtils, Extractors} from '#preload';
 
 const INSTALL_PATH = '/acgcag_mods/3dmigoto/Mods';
@@ -23,7 +23,7 @@ export class GBLocalMod {
 
   public static fromPath(path: string) {
     const file = PreloadUtils.readFile(path);
-    return new GBLocalMod(JSON.parse(file) as GBLocalInfo);
+    return new GBLocalMod(JSON.parse(file) as GBLocalModInfo);
   }
 
   private getLocalFiles() {
@@ -33,7 +33,7 @@ export class GBLocalMod {
     return files;
   }
 
-  public constructor(localInfo: GBLocalInfo) {
+  public constructor(localInfo: GBLocalModInfo) {
     this._itemId = localInfo.modId;
     this._modPath = `/acgcag_mods/mods/${this._itemId}`;
 
@@ -85,7 +85,7 @@ export class GBLocalMod {
     return this._files;
   }
 
-  public toJSON(): GBLocalInfo {
+  public toJSON(): GBLocalModInfo {
     return {
       modId: this.itemId,
       nsfw: this.nsfw,

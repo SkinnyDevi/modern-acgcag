@@ -1,21 +1,29 @@
-import React, {useState} from 'react';
+import React, {useCallback, useEffect, useState} from 'react';
 
-import UIListContainer from '@/components/UI/ListContainer/UIListContainer';
-import UIListExtraToolItem from '@/components/UI/ListContainer/ListItem/UIListExtraToolItem';
-import UIToolbar from '@/components/UI/Toolbar/UIToolbar';
-import UIButton from '@/components/UI/Button/UIButton';
-import ACGIcons from '@/components/UI/ACGIcons';
+import UIListContainer from '@UI/ListContainer/UIListContainer';
+import UIListExtraToolItem from '@UI/ListContainer/ListItem/UIListExtraToolItem';
+import UIToolbar from '@UI/Toolbar/UIToolbar';
+import UIButton from '@UI/Button/UIButton';
+import ACGIcons from '@UI/ACGIcons';
 import type {ACGIconsProps} from '@/components/UI/ACGIcons';
+import ACGCAG_API from '@/services/acgcagApi';
+import type {GBToolPost} from '@/services/gamebananaApi';
 import styles from './ExtraToolsView.module.css';
 
 export default function ExtraToolsView() {
   const [refreshIcon, setRefreshIcon] = useState<ACGIconsProps['iconName']>('check');
+  const [toolList, setToolList] = useState<GBToolPost[]>([]);
 
-  function refreshTools() {
+  const fetchExtraTools = useCallback(async () => {
     setRefreshIcon('loader');
+    const tools = await ACGCAG_API.getExtraTools();
+    setToolList(tools);
+    setRefreshIcon('check');
+  }, []);
 
-    setTimeout(() => setRefreshIcon('check'), 1500);
-  }
+  useEffect(() => {
+    fetchExtraTools();
+  }, []);
 
   return (
     <div>
@@ -25,7 +33,7 @@ export default function ExtraToolsView() {
             <UIButton
               display
               invertColors
-              onClick={refreshTools}
+              onClick={fetchExtraTools}
             >
               Refresh
             </UIButton>
@@ -37,10 +45,14 @@ export default function ExtraToolsView() {
         </div>
       </UIToolbar>
       <UIListContainer style={{height: '71vh'}}>
-        <UIListExtraToolItem
-          toolName="Updater tool"
-          description="This is a tool that fixes all skins for 4.1"
-        />
+        {toolList.map(tool => {
+          return (
+            <UIListExtraToolItem
+              tool={tool}
+              key={tool.toolId}
+            />
+          );
+        })}
       </UIListContainer>
     </div>
   );

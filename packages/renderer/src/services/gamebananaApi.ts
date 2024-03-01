@@ -4,12 +4,22 @@ import {PreloadUtils} from '#preload';
 const MAIN_SITE = 'https://gamebanana.com';
 const ENDPOINT = 'https://api.gamebanana.com/Core/Item/Data';
 
-export default class GameBananaAPI {
-  public static async modFromUrlOrId(urlOrId: string) {
-    if (this.inputIsValid(urlOrId)) return await this.modFromUrl(urlOrId);
-    else return await this.modFromId(parseInt(urlOrId));
-  }
+function idExtractor(url: string) {
+  try {
+    const parsed_url = new URL(url);
+    const paths = parsed_url.pathname.split('/');
+    paths.shift();
 
+    return {
+      urlType: paths[0],
+      extractedId: parseInt(paths[1]),
+    };
+  } catch {
+    throw new Error('Could not extract item ID from url.');
+  }
+}
+
+export default class GameBananaAPI {
   public static inputIsValid(query: string) {
     const urlRegex = /^https:\/\/gamebanana.com\/mods\/[0-9]{6}$/gi;
     const idRegex = /^[0-9]{6}$/gi;
@@ -23,13 +33,16 @@ export default class GameBananaAPI {
     throw new Error('Invalid mod input for mod search');
   }
 
-  public static async modFromUrl(url: string) {
-    const parsed_url = new URL(url);
-    const paths = parsed_url.pathname.split('/');
-    paths.shift();
+  public static async modFromUrlOrId(urlOrId: string) {
+    if (this.inputIsValid(urlOrId)) return await this.modFromUrl(urlOrId);
+    else return await this.modFromId(parseInt(urlOrId));
+  }
 
-    if (paths[0] !== 'mods') this.invalidMod();
-    return this.modFromId(parseInt(paths[1]));
+  public static async modFromUrl(url: string) {
+    const {urlType, extractedId} = idExtractor(url);
+
+    if (urlType !== 'mods') this.invalidMod();
+    return await this.modFromId(extractedId);
   }
 
   public static async modFromId(id: number) {
@@ -49,16 +62,24 @@ export default class GameBananaAPI {
     return new GBModPost(id, response);
   }
 
-  public static extractModId(url: string) {
-    try {
-      const parsed_url = new URL(url);
-      const paths = parsed_url.pathname.split('/');
-      paths.shift();
+  public static async toolFromUrl(url: string) {
+    const {extractedId} = idExtractor(url);
+    return await this.toolFromId(extractedId);
+  }
 
-      return parseInt(paths[1]);
-    } catch {
-      return null;
-    }
+  public static async toolFromId(id: number) {
+    const request_url = new URL(ENDPOINT);
+    const params = request_url.searchParams;
+
+    const searchFields = 'name,description,authors,Game().name,Files().aFiles()';
+
+    params.append('itemid', id.toString());
+    params.append('itemtype', 'Tool');
+    params.append('fields', searchFields);
+
+    const response = (await axios.get(request_url.toString())).data;
+    if (response.error !== undefined) throw new ToolRequestError(response.error_code);
+    return new GBToolPost(id, response);
   }
 }
 
@@ -73,7 +94,7 @@ export type GBDownloadableFile = {
   _tsDateAdded: number;
 };
 
-export type GBLocalInfo = {
+export type GBLocalModInfo = {
   modId: number;
   nsfw: boolean;
   name: string;
@@ -155,7 +176,7 @@ export class GBModPost {
     return `${MAIN_SITE}/mods/${this._itemId}`;
   }
 
-  public toJSON(): GBLocalInfo {
+  public toJSON(): GBLocalModInfo {
     return {
       modId: this.itemId,
       nsfw: this.nsfw,
@@ -178,5 +199,106 @@ export class GBModPost {
 }
 
 export class GameNotSupportedError extends Error {}
-
 export class ModRequestError extends Error {}
+export class ToolRequestError extends Error {}
+
+export type ToolAuthor = {
+  name: string;
+  authorId: number;
+};
+
+export type GBLocalToolInfo = {
+  toolId: number;
+  name: string;
+  description: string;
+  authors: ToolAuthor[];
+  toolUrl: string;
+};
+
+export class GBToolPost {
+  private _toolId: number;
+  private _name: string;
+  private _description: string | undefined;
+  private _authors: ToolAuthor[];
+  private _game: string;
+  private _files: FileList;
+
+  private authorParser(authorObj: string): ToolAuthor[] {
+    const raw = JSON.parse(authorObj);
+
+    const authors: ToolAuthor[] = [];
+    for (const keys of Object.keys(raw)) {
+      const rawAuthors: (string | number)[][] = raw[keys];
+      if (rawAuthors.length > 0)
+        for (let author of rawAuthors) {
+          author = author.filter(n => n);
+
+          const newAuthor: ToolAuthor = {
+            name: author[0] as string,
+            authorId: author[1] as number,
+          };
+
+          const isDupe = authors.find(a => a.name === newAuthor.name);
+          if (isDupe === undefined) authors.push(newAuthor);
+        }
+    }
+
+    return authors;
+  }
+
+  public constructor(toolId: number, response: unknown[]) {
+    this._toolId = toolId;
+    this._name = response[0] as string;
+
+    const description = response[1] as string;
+    this._description = description.length > 0 ? description : undefined;
+
+    this._authors = this.authorParser(response[2] as string);
+    this._game = response[3] as string;
+
+    if (this._game !== 'Genshin Impact') {
+      throw new GameNotSupportedError('Game not supported');
+    }
+
+    this._files = response[4] as FileList;
+  }
+
+  public get toolId() {
+    return this._toolId;
+  }
+
+  public get name() {
+    return this._name;
+  }
+
+  public get description() {
+    return this._description;
+  }
+
+  public get authors() {
+    return this._authors;
+  }
+
+  public get files(): GBDownloadableFile[] {
+    return Object.values(this._files) as unknown as GBDownloadableFile[];
+  }
+
+  public get toolURL() {
+    return `${MAIN_SITE}/tools/${this._toolId}`;
+  }
+
+  public toJSON(): GBLocalToolInfo {
+    return {
+      toolId: this.toolId,
+      name: this.name,
+      description: this.description!,
+      authors: this.authors,
+      toolUrl: this.toolURL,
+    };
+  }
+
+  public async saveInfoToPath(outDir: string) {
+    const infoFile = outDir + `/${this.toolId}.json`;
+    PreloadUtils.saveToFile(JSON.stringify(this.toJSON()), infoFile);
+  }
+}
