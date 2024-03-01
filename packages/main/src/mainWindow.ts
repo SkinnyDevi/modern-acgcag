@@ -1,37 +1,11 @@
 import {app, BrowserWindow, ipcMain} from 'electron';
 import {join, resolve} from 'node:path';
-import initEventHandlers, {checkSetupFiles} from './eventHandlers';
-import {existsSync, readdirSync, readFileSync, writeFileSync} from 'node:fs';
-
-/**
- * Checks if GIMI exists to run the setup installer if not.
- */
-function gimiChecker() {
-  const ROOT_PATH = import.meta.env.DEV ? '' : '../..';
-  const rootPathlike = (...paths: string[]) => join(app.getAppPath(), ROOT_PATH, ...paths);
-
-  const gimiFolder = rootPathlike('/acgcag_mods/3dmigoto');
-  const gimiExists = existsSync(gimiFolder);
-  if (!gimiExists) return false;
-
-  const gimiNotEmpty = readdirSync(gimiFolder).length > 0;
-  if (gimiNotEmpty) return false;
-
-  const configPath = rootPathlike('/acgcag_config/config.json');
-  if (!existsSync(configPath)) return false;
-
-  const raw = readFileSync(configPath, 'utf-8');
-  const contents = JSON.parse(raw);
-
-  if (!contents.has_run_setup as boolean) return false;
-  writeFileSync(configPath, JSON.stringify({has_run_setup: false}));
-
-  return true;
-}
+import initEventHandlers, {checkSetupFiles, gimiChecker, writeToConfig} from './eventHandlers';
 
 async function createWindow() {
-  const needsInstaller = gimiChecker();
   checkSetupFiles(app);
+  const needsInstaller = gimiChecker();
+  if (!needsInstaller) writeToConfig(true);
 
   const browserWindow = new BrowserWindow({
     show: false, // Use the 'ready-to-show' event to show the instantiated BrowserWindow.

@@ -4,8 +4,8 @@ import {TitleCtx} from '@/hooks/TitleContext';
 import {enableAllSidebarButtons} from '../SideBar/SideBar';
 import PaimonIcon from '@assets/icons/paimon-icon.png';
 import ConfigManager from '@/config/configManager';
-import styles from './TitleBar.module.css';
 import ACGIcons from '../UI/ACGIcons';
+import styles from './TitleBar.module.css';
 
 interface TitleBarProps {
   isSetupScreen: boolean;
@@ -37,16 +37,18 @@ export default function TitleBar({isSetupScreen}: TitleBarProps) {
         />
       </div>
       <h1>{isSetupScreen ? title : title.toUpperCase()}</h1>
-      <button
-        type="button"
-        className={styles.acgcag_settings_button}
-        onClick={openSettings}
-      >
-        <ACGIcons
-          iconName="settings"
-          iconSize={[30, 30]}
-        />
-      </button>
+      {!isSetupScreen && (
+        <button
+          type="button"
+          className={styles.acgcag_settings_button}
+          onClick={openSettings}
+        >
+          <ACGIcons
+            iconName="settings"
+            iconSize={[30, 30]}
+          />
+        </button>
+      )}
     </header>
   );
 }
