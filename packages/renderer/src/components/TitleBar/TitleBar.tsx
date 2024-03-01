@@ -33,6 +33,7 @@ export default function TitleBar({isSetupScreen}: TitleBarProps) {
         <img
           src={PaimonIcon}
           alt="Paimon Icon"
+          draggable="false"
         />
       </div>
       <h1>{isSetupScreen ? title : title.toUpperCase()}</h1>

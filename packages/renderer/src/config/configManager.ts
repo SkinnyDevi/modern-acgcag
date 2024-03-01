@@ -3,8 +3,7 @@ import {ConfigHelpers} from '#preload';
 
 const DEFAULT_CONFIG: ACGCAG_Config = {
   has_run_setup: false,
-  // genshin_impact_path: 'C:\\Program Files\\Genshin Impact\\Genshin Impact Game\\Genshin Impact.exe',
-  genshin_impact_path: '"C:\\Users\\Felix MV\\Desktop\\ㅤㅤㅤㅤㅤ\\Genshin Impact.lnk"',
+  genshin_impact_path: 'C:\\Program Files\\Genshin Impact\\Genshin Impact Game\\Genshin Impact.exe',
 };
 
 export default class ConfigManager {
@@ -26,6 +25,21 @@ export default class ConfigManager {
    */
   public get has_run_setup() {
     return this._has_run_setup;
+  }
+
+  /**
+   * The path to execute Genshin Impact from.
+   */
+  public get genshin_impact_path() {
+    return this._genshin_impact_path;
+  }
+
+  /**
+   * Set a new Genshin Impact path.
+   * @param path Path to set.
+   */
+  public setGenshinImpactPath(path: string) {
+    this._genshin_impact_path = path;
   }
 
   /**
@@ -58,6 +72,14 @@ export default class ConfigManager {
       has_run_setup: this._has_run_setup,
       genshin_impact_path: this._genshin_impact_path,
     };
+  }
+
+  /**
+   * Sets new parameters from a given config object.
+   * @param config Object to get the new config from.
+   */
+  public fromConfig(config: ACGCAG_Config) {
+    this._genshin_impact_path = config.genshin_impact_path;
   }
 
   /**

@@ -1,0 +1,15 @@
+.acgcag_settings_saved_text {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.acgcag_settings_saved_text > svg {
+  fill: var(--acgcag-bright-beige);
+}
+
+.acgcag_settings_saved_text > p {
+  font-size: 1.15rem;
+  color: var(--acgcag-main-beige);
+  margin: 20px 10px;
+}

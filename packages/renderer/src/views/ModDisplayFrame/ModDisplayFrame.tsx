@@ -2,8 +2,8 @@ import React, {useContext, useEffect, useState} from 'react';
 
 import {ModDisplayCtx} from '@/hooks/ModDisplayContext';
 import {TitleCtx} from '@/hooks/TitleContext';
-import toolbarStyles from '@/views/DownloadedSkins/DownloadedToolbar/DownloadedToolbar.module.css';
 import UIButton from '@/components/UI/Button/UIButton';
+import UIToolbar from '@/components/UI/Toolbar/UIToolbar';
 import FileTableEntry from './FileTableEntry/FileTableEntry';
 import styles from './ModDisplayFrame.module.css';
 
@@ -41,7 +41,7 @@ export default function ModDisplayFrame() {
 
   return mod !== null ? (
     <div className={styles.acgcag_localmod_displayer}>
-      <div className={toolbarStyles.acgcag_downloaded_toolbar}>
+      <UIToolbar widthPercent={97}>
         <div>
           <UIButton
             display
@@ -51,7 +51,7 @@ export default function ModDisplayFrame() {
             &lt;- Go back
           </UIButton>
         </div>
-      </div>
+      </UIToolbar>
       <div className={styles.acgcag_mod_display_frame}>
         <h1>{mod.name}</h1>
         <div className={styles.acgcag_display_info}>

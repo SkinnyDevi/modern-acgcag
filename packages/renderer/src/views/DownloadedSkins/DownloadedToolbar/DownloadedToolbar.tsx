@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 
 import UIButton from '@UI/Button/UIButton';
-import styles from './DownloadedToolbar.module.css';
+import UIToolbar from '@/components/UI/Toolbar/UIToolbar';
 
 export default function DownloadedToolbar() {
   const [sortAscending, setSortAscending] = useState(true);
@@ -16,7 +16,7 @@ export default function DownloadedToolbar() {
   }
 
   return (
-    <div className={styles.acgcag_downloaded_toolbar}>
+    <UIToolbar widthPercent={97}>
       <div>
         <UIButton
           display
@@ -47,6 +47,6 @@ export default function DownloadedToolbar() {
           Sort: {sortAscending ? 'A-Z' : 'Z-A'}
         </UIButton>
       </div>
-    </div>
+    </UIToolbar>
   );
 }
