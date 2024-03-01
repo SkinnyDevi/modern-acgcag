@@ -3,7 +3,8 @@ import {ConfigHelpers} from '#preload';
 
 const DEFAULT_CONFIG: ACGCAG_Config = {
   has_run_setup: false,
-  genshin_impact_path: 'C:\\Program Files\\Genshin Impact\\Genshin Impact Game\\Genshin Impact.exe',
+  genshin_impact_path:
+    '"C:\\Program Files\\Genshin Impact\\Genshin Impact Game\\Genshin Impact.exe"',
 };
 
 export default class ConfigManager {

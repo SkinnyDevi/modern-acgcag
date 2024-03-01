@@ -134,4 +134,9 @@ export class GBLocalMod {
     PreloadUtils.removeDirOrFile(entryPath.join('/'));
     this._files = this.getLocalFiles();
   }
+
+  // TODO: On delete, also delete on 3dmigoto
+  public deleteLocalMod() {
+    PreloadUtils.removeDirOrFile(this._modPath);
+  }
 }

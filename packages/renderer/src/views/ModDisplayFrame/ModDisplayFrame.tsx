@@ -21,6 +21,7 @@ export default function ModDisplayFrame() {
   function returnToMods() {
     setTitle('downloaded skins');
     setMod(null);
+    setFileList([]);
   }
 
   function capitalize(s: string) {
@@ -30,7 +31,19 @@ export default function ModDisplayFrame() {
   function deleteEntry(fe: FileEntry) {
     if (!mod) return;
 
+    const lastFile = fileList.length === 1;
+    if (lastFile) {
+      const deleteConfirm = confirm('Are you sure you want to delete this mod from your system?');
+      if (!deleteConfirm) return;
+    }
+
     mod.deleteLocalFileEntry(fe);
+    if (lastFile) {
+      mod.deleteLocalMod();
+      returnToMods();
+      return;
+    }
+
     setFileList(mod.getInstalledMods());
   }
 
