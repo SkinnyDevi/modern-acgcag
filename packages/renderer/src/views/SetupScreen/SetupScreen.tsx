@@ -10,6 +10,7 @@ const CONFIG = ConfigManager.setup();
 const DL_URL =
   'https://github.com/SilentNightSound/GI-Model-Importer/releases/download/v7.0/3dmigoto-GIMI-for-playing-mods.zip';
 
+let setupHasErrors = true;
 export default function SetupScreen() {
   const [startSetup, setStartSetup] = useState(false);
   const [finishSetup, setFinishSetup] = useState(false);
@@ -31,19 +32,37 @@ export default function SetupScreen() {
   async function downloadGimi() {
     setGimiStatus('Downloading');
 
-    await PreloadUtils.downloadFile(DL_URL, '/3dmigoto_download.zip', e => {
-      if (e.total) setGimiDlBar((e.bytes / e.total) * 100);
-    });
-    setGimiDlBar(100);
-    setGimiStatus('Complete');
+    try {
+      await PreloadUtils.downloadFile(DL_URL, '/3dmigoto_download.zip', e => {
+        if (e.total) setGimiDlBar((e.bytes / e.total) * 100);
+      });
+      setGimiDlBar(100);
+      setGimiStatus('Complete');
+      setupHasErrors = false;
+    } catch (err) {
+      setGimiStatus('Failed');
+      console.error(err);
+    }
   }
 
   async function extractGimi() {
+    if (setupHasErrors) {
+      setGimiExtractStatus('Failed');
+      return;
+    }
+
     setGimiExtractStatus('Extracting');
     setGimiExtractBar(0);
-    await SetupHelpers.extractGimi();
-    setGimiExtractBar(100);
-    setGimiExtractStatus('Complete');
+    try {
+      await SetupHelpers.extractGimi();
+      setGimiExtractBar(100);
+      setGimiExtractStatus('Complete');
+      setupHasErrors = false;
+    } catch (err) {
+      setGimiExtractStatus('Failed');
+      setupHasErrors = true;
+      console.error(err);
+    }
   }
 
   return (
@@ -88,19 +107,42 @@ export default function SetupScreen() {
         className={styles.acgcag_setup_finish_title}
         style={{display: finishSetup ? 'flex' : 'none'}}
       >
-        <h1>Setup has finished!</h1>
-        <h2>
-          Press the button below to restart the app. <br />
-          The app should close and open the Skin Manager window.
-        </h2>
-        <UIButton
-          display
-          onClick={PreloadUtils.restartApp}
-          width={150}
-          height={35}
-        >
-          Finish Setup
-        </UIButton>
+        {setupHasErrors ? (
+          <>
+            <h1>Oh no! The setup appears to have failed.</h1>
+            <h2>
+              This doesn&apos;t happent normally. <br />
+              Press the button below to restart the setup process. <br />
+              The app will close and open restared.
+            </h2>
+            <UIButton
+              display
+              onClick={PreloadUtils.restartApp}
+              width={200}
+              height={50}
+              invertColors
+            >
+              Close and restart setup
+            </UIButton>
+          </>
+        ) : (
+          <>
+            <h1>Setup has finished!</h1>
+            <h2>
+              Press the button below to restart the app. <br />
+              The app should close and open the Skin Manager window.
+            </h2>
+            <UIButton
+              display
+              onClick={PreloadUtils.restartApp}
+              width={150}
+              height={35}
+              invertColors
+            >
+              Finish Setup
+            </UIButton>
+          </>
+        )}
       </div>
     </div>
   );

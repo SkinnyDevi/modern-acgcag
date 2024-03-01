@@ -108,6 +108,8 @@ async function downloadFile(
     url: fileUrl,
     responseType: 'stream',
     onDownloadProgress: bytesCallback,
+    timeout: 10000,
+    timeoutErrorMessage: 'The download timed out.',
   });
   request.data.pipe(writer);
 

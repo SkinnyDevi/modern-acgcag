@@ -3,7 +3,13 @@ import React from 'react';
 import UIProgressBar from '@UI/ProgressBar/UIProgressBar';
 import styles from './UIDownloadField.module.css';
 
-export type DownloadStatus = 'Waiting' | 'Downloading' | 'Complete' | 'Extracting' | 'Creating';
+export type DownloadStatus =
+  | 'Waiting'
+  | 'Downloading'
+  | 'Complete'
+  | 'Failed'
+  | 'Extracting'
+  | 'Creating';
 
 interface UIDownloadFieldProps {
   /**
