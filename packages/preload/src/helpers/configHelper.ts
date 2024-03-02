@@ -8,6 +8,7 @@ const CONFIG_FILE_PATH = CONFIG_DIR + '/config.json';
 export type ACGCAG_Config = {
   has_run_setup: boolean;
   genshin_impact_path: string;
+  blur_nsfw: boolean;
 };
 
 /**

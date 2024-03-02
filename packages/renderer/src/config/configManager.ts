@@ -5,6 +5,7 @@ const DEFAULT_CONFIG: ACGCAG_Config = {
   has_run_setup: false,
   genshin_impact_path:
     '"C:\\Program Files\\Genshin Impact\\Genshin Impact Game\\Genshin Impact.exe"',
+  blur_nsfw: true,
 };
 
 export default class ConfigManager {
@@ -13,10 +14,13 @@ export default class ConfigManager {
 
   private _has_run_setup: boolean;
   private _genshin_impact_path: string;
+  private _blur_nsfw: boolean;
 
   private constructor(data: ACGCAG_Config) {
     this._has_run_setup = data.has_run_setup;
     this._genshin_impact_path = data.genshin_impact_path;
+    this._blur_nsfw = data.blur_nsfw;
+
     ConfigManager.instance = this;
     ConfigManager._path = ConfigHelpers.getConfigPath();
   }
@@ -36,11 +40,10 @@ export default class ConfigManager {
   }
 
   /**
-   * Set a new Genshin Impact path.
-   * @param path Path to set.
+   * If the App should blur NSFW mod thumbnails.
    */
-  public setGenshinImpactPath(path: string) {
-    this._genshin_impact_path = path;
+  public get blur_nsfw() {
+    return this._blur_nsfw;
   }
 
   /**
@@ -72,6 +75,7 @@ export default class ConfigManager {
     return {
       has_run_setup: this._has_run_setup,
       genshin_impact_path: this._genshin_impact_path,
+      blur_nsfw: this._blur_nsfw,
     };
   }
 
@@ -81,6 +85,7 @@ export default class ConfigManager {
    */
   public fromConfig(config: ACGCAG_Config) {
     this._genshin_impact_path = config.genshin_impact_path;
+    this._blur_nsfw = config.blur_nsfw;
   }
 
   /**

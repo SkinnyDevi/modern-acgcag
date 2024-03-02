@@ -22,7 +22,7 @@
   align-items: center;
 }
 
-.acgcag_ui_list_item_small_info > label {
+.acgcag_ui_list_item_small_info > p {
   margin: 5px 0;
   font-size: 1.2rem;
   color: var(--acgcag-main-beige);
@@ -34,12 +34,12 @@
   color: var(--acgcag-dim-beige);
 }
 
-.acgcag_ui_list_item_small_info > input {
+.acgcag_ui_list_item_small_info > input[type="text"] {
   margin: 0 !important;
   width: 250px;
 }
 
-.acgcag_ui_list_item_small_info > input,
+.acgcag_ui_list_item_small_info > input[type="text"],
 .acgcag_ui_list_item > input {
   padding: 5px;
   border-radius: 5px;
@@ -100,4 +100,52 @@
   background-color: var(--acgcag-bright-beige);
   font-size: 0.9rem;
   width: 200px;
+}
+
+/*
+  Toggle Switch credits to Marcus on code pen:
+  https://codepen.io/mburnette/
+  https://codepen.io/alvarotrigo/pen/abVPyaJ
+*/
+
+.acgcag_ui_list_item_small_info > input[type="checkbox"] {
+  height: 0;
+  width: 0;
+  visibility: hidden;
+}
+
+.acgcag_pill_toggle_label {
+  cursor: pointer;
+  text-indent: -9999px;
+  width: 75px;
+  height: 40px;
+  background: grey;
+  display: block;
+  border-radius: 100px;
+  position: relative;
+}
+
+.acgcag_pill_toggle_label:after {
+  content: "";
+  position: absolute;
+  top: 5px;
+  left: 5px;
+  width: 30px;
+  height: 30px;
+  background: #fff;
+  border-radius: 90px;
+  transition: all 0.3s;
+}
+
+.acgcag_ui_list_item_small_info > input:checked + .acgcag_pill_toggle_label {
+  background: #51c74d;
+}
+
+.acgcag_ui_list_item_small_info > input[type="checkbox"]:checked + .acgcag_pill_toggle_label:after {
+  left: calc(100% - 5px);
+  transform: translateX(-100%);
+}
+
+.acgcag_ui_list_item_small_info > .acgcag_pill_toggle_label:active:after {
+  width: 40px;
 }

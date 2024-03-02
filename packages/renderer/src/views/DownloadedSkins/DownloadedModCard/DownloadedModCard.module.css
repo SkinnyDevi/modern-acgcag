@@ -8,10 +8,29 @@
 
 .acgcag_dl_mod_card_thumbnail {
   width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   height: 45%;
+}
+
+.acgcag_dl_mod_card_thumbnail > div:last-child {
+  width: 100%;
+  height: 100%;
+  z-index: 0;
   border-radius: 10px 10px 0 0;
   background-size: cover;
   background-position: center;
+}
+
+.acgcag_dl_mod_card_thumbnail > div:first-child {
+  position: relative;
+  z-index: 1;
+}
+
+.acgcag_dl_mod_card_thumbnail > div:first-child > div {
+  position: absolute;
+  transform: translate(45%, -60%);
 }
 
 .acgcag_dl_mod_card_name {

@@ -6,6 +6,7 @@ import ConfigManager from '@/config/configManager';
 import UIToolbar from '@/components/UI/Toolbar/UIToolbar';
 import ACGIcons from '@/components/UI/ACGIcons';
 import type {ACGIconsProps} from '@/components/UI/ACGIcons';
+import UIListPillToggleItem from '@/components/UI/ListContainer/ListItem/UIListPillToggleItem';
 import styles from './SettingsView.module.css';
 
 const CONFIG = ConfigManager.setup();
@@ -13,7 +14,9 @@ const CONFIG = ConfigManager.setup();
 export default function SettingsView() {
   const [initialSet, setInitialSet] = useState(false);
   const [dynamicConfig, setDynConfig] = useState(CONFIG.info());
+
   const [genshinPath, setGenshinPath] = useState(CONFIG.genshin_impact_path);
+  const [toggleNsfwBlur, setToggleNsfwBlur] = useState(CONFIG.blur_nsfw);
 
   const [savedText, setSavedText] = useState('Settings Saved');
   const [savedIcon, setSavedIcon] = useState<ACGIconsProps['iconName']>('check');
@@ -27,6 +30,7 @@ export default function SettingsView() {
     setSavedIcon('loader');
     const cfg = {...dynamicConfig};
     cfg.genshin_impact_path = genshinPath;
+    cfg.blur_nsfw = toggleNsfwBlur;
 
     setDynConfig(cfg);
   }
@@ -37,7 +41,7 @@ export default function SettingsView() {
 
   useEffect(() => {
     if (initialSet) updateConfig();
-  }, [genshinPath]);
+  }, [genshinPath, toggleNsfwBlur]);
 
   useEffect(() => {
     if (initialSet) {
@@ -67,13 +71,22 @@ export default function SettingsView() {
         </div>
         <div></div>
       </UIToolbar>
-      <UIListContainer style={{height: '73vh'}}>
+      <UIListContainer style={{height: '72vh'}}>
         <UIListInputItem
           label="Genshin Impact executable path"
           subtitle={generateSubtitle('genshin_impact_path', 'text')}
           size="l"
           value={genshinPath}
           onChange={e => setGenshinPath(e.currentTarget.value)}
+        />
+        <UIListPillToggleItem
+          label="Blur NSFW thumbnail images"
+          subtitle={generateSubtitle('blur_nsfw', 'true / false')}
+          checked={toggleNsfwBlur}
+          onChange={e => {
+            console.log(e.currentTarget.checked);
+            setToggleNsfwBlur(e.currentTarget.checked);
+          }}
         />
       </UIListContainer>
     </div>
