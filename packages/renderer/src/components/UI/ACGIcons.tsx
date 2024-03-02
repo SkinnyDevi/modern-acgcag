@@ -11,7 +11,7 @@ export interface ACGIconsProps {
     | 'file-edit'
     | 'banana'
     | 'play'
-    | 'mod'
+    | 'extra-tool'
     | 'check'
     | 'error'
     | 'loader'
@@ -84,7 +84,7 @@ export default function ACGIcons({iconName, iconSize}: ACGIconsProps) {
           height={h}
         />
       );
-    case 'mod':
+    case 'extra-tool':
       return (
         <ModIcon
           width={w}

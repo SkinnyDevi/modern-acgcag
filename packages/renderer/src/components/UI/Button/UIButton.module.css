@@ -1,13 +1,11 @@
 .acgcag_ui_button {
   display: flex;
   justify-content: center;
-  margin: 10px;
 }
 
 .acgcag_ui_button > button {
   outline: none;
   border: none;
-  margin: 10px 0;
   padding: 5px 10px;
   border-radius: 5px;
 }

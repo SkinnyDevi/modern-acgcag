@@ -1,4 +1,5 @@
 import React, {useContext, useEffect} from 'react';
+
 import {PreloadUtils} from '#preload';
 import SideBarButton from './Button/SideBarButton';
 import {TitleCtx} from '@/hooks/TitleContext';
@@ -12,6 +13,7 @@ export const ButtonIds: ACGIconsProps['iconName'][] = [
   'file-edit',
   'banana',
   'play',
+  'extra-tool',
 ];
 
 export function enableAllSidebarButtons() {
@@ -56,7 +58,7 @@ export default function SideBar() {
         selectBtn('play');
         break;
       case 'Extra Tools':
-        selectBtn('mod');
+        selectBtn('extra-tool');
         break;
     }
   }, [title]);
@@ -85,7 +87,7 @@ export default function SideBar() {
           tabTitle="File Edit"
         /> */}
         <SideBarButton
-          iconName="mod"
+          iconName="extra-tool"
           iconSize={[38, 38]}
           tabTitle="Extra Tools"
         />

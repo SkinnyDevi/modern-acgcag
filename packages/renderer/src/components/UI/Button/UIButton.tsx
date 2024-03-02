@@ -13,6 +13,7 @@ interface UIButtonProps {
   children: React.ReactNode;
   textSize?: 'l' | 'm' | 's';
   id?: string;
+  useMargin?: boolean;
 }
 
 export default function UIButton({
@@ -26,12 +27,14 @@ export default function UIButton({
   invertColors = false,
   textSize = 'm',
   id,
+  useMargin = true,
 }: UIButtonProps) {
   return (
     <div
       className={`${styles.acgcag_ui_button} ${
         invertColors ? styles.acgcag_ui_button_inverted : styles.acgcag_ui_button_normal
       } ${styles[`acgcag_ui_button_${textSize}`]}`}
+      style={{margin: useMargin ? '10px' : '0'}}
     >
       <button
         type={type}
@@ -41,6 +44,7 @@ export default function UIButton({
           width: width ? width : 'auto',
           height: height ? height : 'auto',
           display: display ? 'block' : 'none',
+          margin: useMargin ? '10px 0' : '0',
         }}
         id={id}
       >

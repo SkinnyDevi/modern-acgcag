@@ -3,7 +3,7 @@ import React, {useEffect, useState} from 'react';
 import {PreloadUtils} from '#preload';
 import {GBLocalMod} from '@/services/localModManager';
 import DownloadedToolbar from './DownloadedToolbar/DownloadedToolbar';
-import DownloadedModFrame from './DownloadedModFrame/DownloadedModFrame';
+import DownloadedModCard from './DownloadedModCard/DownloadedModCard';
 import styles from './DownloadedSkins.module.css';
 
 export default function DownloadedSkins() {
@@ -29,7 +29,7 @@ export default function DownloadedSkins() {
         {modList !== null ? (
           modList.map(m => {
             return (
-              <DownloadedModFrame
+              <DownloadedModCard
                 key={m.itemId}
                 mod={m}
               />
