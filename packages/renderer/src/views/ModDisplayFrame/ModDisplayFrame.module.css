@@ -34,9 +34,9 @@
   text-align: center;
 }
 
-.acgcag_display_info_frame > img {
-  width: 250px;
-  height: auto;
+.acgcag_display_info > img {
+  max-width: 250px;
+  max-height: 196px;
   padding: 0 15px;
 }
 

@@ -9,6 +9,8 @@ import styles from './DownloadedSkins.module.css';
 export default function DownloadedSkins() {
   const [modList, setModList] = useState<GBLocalMod[] | null>(null);
 
+  const [sortAscending, setSortAscending] = useState(true);
+
   useEffect(() => {
     const modIds = PreloadUtils.getModFolders();
     if (modIds === null) return;
@@ -23,21 +25,20 @@ export default function DownloadedSkins() {
 
   return (
     <div className={styles.acgcag_downloaded_view}>
-      <DownloadedToolbar />
+      <DownloadedToolbar onSortChange={changedSort => setSortAscending(changedSort)} />
 
       <div className={styles.acgcag_mod_container}>
-        {modList !== null ? (
-          modList.map(m => {
-            return (
-              <DownloadedModCard
-                key={m.itemId}
-                mod={m}
-              />
-            );
-          })
-        ) : (
-          <></>
-        )}
+        {modList !== null &&
+          modList
+            .sort((a, b) => (sortAscending ? 1 : -1) * a.name.localeCompare(b.name))
+            .map(m => {
+              return (
+                <DownloadedModCard
+                  key={m.itemId}
+                  mod={m}
+                />
+              );
+            })}
       </div>
     </div>
   );

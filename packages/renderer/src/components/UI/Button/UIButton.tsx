@@ -14,6 +14,7 @@ interface UIButtonProps {
   textSize?: 'l' | 'm' | 's';
   id?: string;
   useMargin?: boolean;
+  forceSelection?: boolean;
 }
 
 export default function UIButton({
@@ -28,17 +29,20 @@ export default function UIButton({
   textSize = 'm',
   id,
   useMargin = true,
+  forceSelection = false,
 }: UIButtonProps) {
   return (
     <div
       className={`${styles.acgcag_ui_button} ${
-        invertColors ? styles.acgcag_ui_button_inverted : styles.acgcag_ui_button_normal
+        invertColors && !forceSelection
+          ? styles.acgcag_ui_button_inverted
+          : styles.acgcag_ui_button_normal
       } ${styles[`acgcag_ui_button_${textSize}`]}`}
       style={{margin: useMargin ? '10px' : '0'}}
     >
       <button
         type={type}
-        disabled={disabled}
+        disabled={disabled || forceSelection}
         onClick={onClick}
         style={{
           width: width ? width : 'auto',

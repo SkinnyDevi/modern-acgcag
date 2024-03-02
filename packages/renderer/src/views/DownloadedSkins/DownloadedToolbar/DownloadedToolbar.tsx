@@ -3,11 +3,16 @@ import React, {useState} from 'react';
 import UIButton from '@UI/Button/UIButton';
 import UIToolbar from '@/components/UI/Toolbar/UIToolbar';
 
-export default function DownloadedToolbar() {
+interface DownloadedToolbarProps {
+  onSortChange: (sortAscending: boolean) => void;
+}
+
+export default function DownloadedToolbar({onSortChange}: DownloadedToolbarProps) {
   const [sortAscending, setSortAscending] = useState(true);
   const [viewBlock, setViewBlock] = useState(true);
 
   function changeSort() {
+    onSortChange(!sortAscending);
     setSortAscending(!sortAscending);
   }
 
@@ -21,6 +26,7 @@ export default function DownloadedToolbar() {
         <UIButton
           display
           invertColors
+          forceSelection
         >
           All
         </UIButton>
