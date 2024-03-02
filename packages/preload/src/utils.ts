@@ -2,6 +2,7 @@ import * as path from 'path';
 import axios from 'axios';
 import type {AxiosRequestConfig} from 'axios';
 import {finished} from 'stream';
+import {promisify} from 'util';
 import {
   createWriteStream,
   existsSync,
@@ -13,6 +14,9 @@ import {
 } from 'fs';
 import {shell, ipcRenderer} from 'electron';
 import ConfigHelpers from './helpers/configHelper';
+
+const promisifiedFinish = promisify(finished);
+axios.defaults.adapter = 'http';
 
 /**
  * Request the app path from the main process.
@@ -100,24 +104,18 @@ async function downloadFile(
   bytesCallback: AxiosRequestConfig['onDownloadProgress'],
 ) {
   checkOrCreateDir(outputLocationPath);
-
   const writer = createWriteStream(rootPathlike(outputLocationPath));
 
-  const request = await axios({
+  return axios({
     method: 'get',
     url: fileUrl,
     responseType: 'stream',
     onDownloadProgress: bytesCallback,
     timeout: 10000,
     timeoutErrorMessage: 'The download timed out.',
-  });
-  request.data.pipe(writer);
-
-  return new Promise<void>((resolve, reject) => {
-    finished(writer, err => {
-      if (err) reject();
-      else resolve();
-    });
+  }).then(response => {
+    response.data.pipe(writer);
+    return promisifiedFinish(writer);
   });
 }
 
