@@ -55,6 +55,9 @@ export default function SideBar() {
       case '3DMigoto Launched':
         selectBtn('play');
         break;
+      case 'Extra Tools':
+        selectBtn('mod');
+        break;
     }
   }, [title]);
 
@@ -76,14 +79,14 @@ export default function SideBar() {
           iconSize={[34, 34]}
           tabTitle="Import Skins from GameBanana"
         />
-        <SideBarButton
+        {/* <SideBarButton
           iconName="file-edit"
           iconSize={[34, 34]}
           tabTitle="File Edit"
-        />
+        /> */}
         <SideBarButton
           iconName="mod"
-          iconSize={[32, 32]}
+          iconSize={[38, 38]}
           tabTitle="Extra Tools"
         />
       </div>

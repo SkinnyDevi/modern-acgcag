@@ -11,22 +11,31 @@
   border: none;
 }
 
-.acgcag_sidebar_btn:hover {
-  cursor: pointer;
-}
-
 .acgcag_sidebar_btn > svg {
-  fill: var(--acgcag-main-beige);
+  fill: var(--acgcag-button-fg);
 }
 
 .acgcag_sidebar_btn_hover,
 .acgcag_sidebar_btn[disabled],
 .acgcag_sidebar_btn:disabled {
-  background: var(--acgcag-main-beige);
+  background: var(--acgcag-button-fg);
 }
 
 .acgcag_sidebar_btn_hover > svg,
 .acgcag_sidebar_btn[disabled] > svg,
 .acgcag_sidebar_btn:disabled > svg {
+  fill: var(--acgcag-button-bg);
+}
+
+.acgcag_sidebar_btn:hover {
+  cursor: pointer;
+  background: var(--acgcag-button-fg);
+}
+
+.acgcag_sidebar_btn[disabled]:hover {
+  cursor: not-allowed;
+}
+
+.acgcag_sidebar_btn:hover svg {
   fill: var(--acgcag-button-bg);
 }

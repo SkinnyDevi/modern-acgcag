@@ -22,13 +22,6 @@ export default function SideBarButton({
 }: SideBarButtonProps) {
   const {setTitle} = useContext(TitleCtx);
 
-  function hoverButton(e: React.MouseEvent<HTMLButtonElement, MouseEvent>, enter: boolean) {
-    const btn = e.target as HTMLButtonElement;
-
-    if (enter) btn.classList.add(styles.acgcag_sidebar_btn_hover);
-    else btn.classList.remove(styles.acgcag_sidebar_btn_hover);
-  }
-
   function setTab() {
     if (callback !== undefined) callback();
     if (!tabChange) return;
@@ -38,8 +31,6 @@ export default function SideBarButton({
 
   return (
     <button
-      onMouseEnter={e => hoverButton(e, true)}
-      onMouseLeave={e => hoverButton(e, false)}
       className={styles.acgcag_sidebar_btn}
       onClick={setTab}
       id={`acgcag-sidebar-btn-${iconName}`}
