@@ -301,4 +301,11 @@ export class GBToolPost {
     const infoFile = outDir + `/${this.toolId}.json`;
     PreloadUtils.saveToFile(JSON.stringify(this.toJSON()), infoFile);
   }
+
+  public static filterExecutables(tool: GBToolPost) {
+    return tool.files.filter(t => {
+      const disected = t._sFile.split('.');
+      return disected[disected.length - 1].toLowerCase() === 'exe';
+    });
+  }
 }

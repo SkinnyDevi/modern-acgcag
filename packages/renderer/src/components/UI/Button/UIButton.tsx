@@ -15,6 +15,7 @@ interface UIButtonProps {
   id?: string;
   useMargin?: boolean;
   forceSelection?: boolean;
+  style?: React.CSSProperties;
 }
 
 export default function UIButton({
@@ -30,6 +31,7 @@ export default function UIButton({
   id,
   useMargin = true,
   forceSelection = false,
+  style,
 }: UIButtonProps) {
   return (
     <div
@@ -38,7 +40,7 @@ export default function UIButton({
           ? styles.acgcag_ui_button_inverted
           : styles.acgcag_ui_button_normal
       } ${styles[`acgcag_ui_button_${textSize}`]}`}
-      style={{margin: useMargin ? '10px' : '0'}}
+      style={{margin: useMargin ? '10px' : '0', ...style}}
     >
       <button
         type={type}
