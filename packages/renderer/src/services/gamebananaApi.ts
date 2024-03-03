@@ -1,5 +1,5 @@
 import axios from 'axios';
-import {PreloadUtils} from '#preload';
+import {FileManager} from '#preload';
 
 const MAIN_SITE = 'https://gamebanana.com';
 const ENDPOINT = 'https://api.gamebanana.com/Core/Item/Data';
@@ -193,8 +193,8 @@ export class GBModPost {
     const infoFile = outDir + `/${this.itemId}.json`;
     const imgFile = outDir + `/${this.itemId}.jpg`;
 
-    PreloadUtils.saveToFile(JSON.stringify(this.toJSON()), infoFile);
-    PreloadUtils.downloadFile(this.previewImg, imgFile, () => {});
+    FileManager.saveToFile(JSON.stringify(this.toJSON()), infoFile);
+    FileManager.downloadFile(this.previewImg, imgFile, () => {});
   }
 }
 
@@ -299,7 +299,7 @@ export class GBToolPost {
 
   public async saveInfoToPath(outDir: string) {
     const infoFile = outDir + `/${this.toolId}.json`;
-    PreloadUtils.saveToFile(JSON.stringify(this.toJSON()), infoFile);
+    FileManager.saveToFile(JSON.stringify(this.toJSON()), infoFile);
   }
 
   public static filterExecutables(tool: GBToolPost) {

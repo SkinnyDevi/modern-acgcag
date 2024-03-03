@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 
-import {PreloadUtils} from '#preload';
+import {FileManager} from '#preload';
 import type {GBModPost} from '@/services/gamebananaApi';
 import type {GBDownloadableFile} from '@/services/gamebananaApi';
 import ACGIcons, {type ACGIconsProps} from '@/components/UI/ACGIcons';
@@ -34,7 +34,7 @@ export default function DownloadableItem({file, mod}: DownloadableItemProps) {
 
     const dlPath = `/acgcag_mods/${type}s/${mod.itemId}/${file._sFile}`;
     let latestProgress = 0;
-    await PreloadUtils.downloadFile(file._sDownloadUrl, dlPath, e => {
+    await FileManager.downloadFile(file._sDownloadUrl, dlPath, e => {
       if (e.total) {
         const progress = (e.bytes / e.total) * 100;
         if (progress > latestProgress) {

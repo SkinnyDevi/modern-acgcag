@@ -1,5 +1,5 @@
 import type {GBLocalModInfo} from './gamebananaApi';
-import {PreloadUtils, Extractors} from '#preload';
+import {Extractors, FileManager} from '#preload';
 
 const INSTALL_PATH = '/acgcag_mods/3dmigoto/Mods';
 
@@ -22,12 +22,12 @@ export class GBLocalMod {
   private _modPath: string;
 
   public static fromPath(path: string) {
-    const file = PreloadUtils.readFile(path);
+    const file = FileManager.readFile(path);
     return new GBLocalMod(JSON.parse(file) as GBLocalModInfo);
   }
 
   private getLocalFiles() {
-    const files = PreloadUtils.getModFolderFiles(this._modPath);
+    const files = FileManager.getModFolderFiles(this._modPath);
     if (files === null) throw new Error('Failed to get mod file list');
 
     return files;
@@ -44,7 +44,7 @@ export class GBLocalMod {
     this._super_category = this._sub_category === 'Weapons' ? 'Weapons' : this._super_category;
     this._character = this._super_category === 'Skins' ? this._sub_category : null;
     this._previewImg = localInfo.previewImgUrl;
-    this._previewImgLocal = PreloadUtils.rootPathlike(`${this._modPath}/${this._itemId}.jpg`);
+    this._previewImgLocal = FileManager.rootPathlike(`${this._modPath}/${this._itemId}.jpg`);
     this._modURL = localInfo.modUrl;
     this._files = this.getLocalFiles();
   }
@@ -104,7 +104,7 @@ export class GBLocalMod {
       entries.push({fileName: f, isInstalled: false});
     }
 
-    const installed = PreloadUtils.getFolderContents(`/acgcag_mods/3dmigoto/Mods/${this._itemId}`);
+    const installed = FileManager.getFolderContents(`/acgcag_mods/3dmigoto/Mods/${this._itemId}`);
     if (installed === null) return entries;
 
     for (const ent of entries) {
@@ -126,17 +126,17 @@ export class GBLocalMod {
     if (!entry.isInstalled) throw new Error('Mod is not installed.');
 
     const installPath = [INSTALL_PATH, this._itemId, entry.fileName];
-    PreloadUtils.removeDirOrFile(installPath.join('/'));
+    FileManager.removeDirOrFile(installPath.join('/'));
   }
 
   public deleteLocalFileEntry(entry: FileEntry) {
     const entryPath = [this._modPath, entry.fileName];
-    PreloadUtils.removeDirOrFile(entryPath.join('/'));
+    FileManager.removeDirOrFile(entryPath.join('/'));
     this._files = this.getLocalFiles();
   }
 
   // TODO: On delete, also delete on 3dmigoto
   public deleteLocalMod() {
-    PreloadUtils.removeDirOrFile(this._modPath);
+    FileManager.removeDirOrFile(this._modPath);
   }
 }

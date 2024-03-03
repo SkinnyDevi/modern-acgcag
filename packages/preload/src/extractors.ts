@@ -1,7 +1,6 @@
 import decompress from 'decompress';
-import {rmSync} from 'fs';
 
-import PreloadUtils from './utils';
+import FileManager from './managers/fileManager';
 
 /**
  * Extracts the given zip file to a directory.
@@ -14,12 +13,12 @@ function zipExtractor(pathToZip: string, outDir: string, deleteZip = false) {
     throw new Error('ZipExtractor path does not point to a zip file');
 
   return new Promise<void>((resolve, reject) => {
-    const extractPath = PreloadUtils.rootPathlike(pathToZip);
-    const outPath = PreloadUtils.rootPathlike(outDir);
+    const extractPath = FileManager.rootPathlike(pathToZip);
+    const outPath = FileManager.rootPathlike(outDir);
 
     decompress(extractPath, outPath)
       .then(() => {
-        if (deleteZip) rmSync(extractPath, {force: true, maxRetries: 5, retryDelay: 200});
+        if (deleteZip) FileManager.removeDirOrFile(extractPath);
         resolve();
       })
       .catch(reason => reject(reason));

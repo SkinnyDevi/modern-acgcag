@@ -1,6 +1,4 @@
-import * as fs from 'fs';
-
-import PreloadUtils from '../utils';
+import FileManager from '../managers/fileManager';
 
 const CONFIG_DIR = '/acgcag_config';
 const CONFIG_FILE_PATH = CONFIG_DIR + '/config.json';
@@ -16,29 +14,21 @@ export type ACGCAG_Config = {
  * @returns File path as `string`.
  */
 function getConfigPath() {
-  return PreloadUtils.rootPathlike(CONFIG_FILE_PATH);
-}
-
-/**
- * Check if the path exists.
- * @param path Path to check.
- */
-function pathExists(path: string) {
-  return fs.existsSync(path);
+  return FileManager.rootPathlike(CONFIG_FILE_PATH);
 }
 
 /**
  * Check if the config file exists.
  */
 function configFileExists() {
-  return pathExists(PreloadUtils.rootPathlike(CONFIG_FILE_PATH));
+  return FileManager.pathExists(FileManager.rootPathlike(CONFIG_FILE_PATH));
 }
 
 /**
  * Check if the config path exists.
  */
 function configPathExists() {
-  return pathExists(PreloadUtils.rootPathlike(CONFIG_DIR));
+  return FileManager.pathExists(FileManager.rootPathlike(CONFIG_DIR));
 }
 
 /**
@@ -53,9 +43,8 @@ function configExists() {
  * @param data The data to be stored.
  */
 function saveConfig(data: ACGCAG_Config) {
-  if (!configPathExists()) fs.mkdirSync(PreloadUtils.rootPathlike(CONFIG_DIR));
-
-  fs.writeFileSync(getConfigPath(), JSON.stringify(data), 'utf-8');
+  FileManager.checkOrCreateDir(CONFIG_DIR);
+  FileManager.saveToFile(JSON.stringify(data), CONFIG_FILE_PATH);
 }
 
 /**
@@ -63,14 +52,13 @@ function saveConfig(data: ACGCAG_Config) {
  * @returns A Config object with it's properties.
  */
 function readConfigFile(): ACGCAG_Config {
-  const raw = fs.readFileSync(getConfigPath(), 'utf-8');
+  const raw = FileManager.readFile(CONFIG_FILE_PATH);
   return JSON.parse(raw);
 }
 
 const ConfigHelpers = {
   getConfigPath,
   saveConfig,
-  pathExists,
   readConfigFile,
   configFileExists,
   configPathExists,

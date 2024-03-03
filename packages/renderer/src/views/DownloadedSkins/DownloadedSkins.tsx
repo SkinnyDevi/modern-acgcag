@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
 
-import {PreloadUtils} from '#preload';
+import {FileManager} from '#preload';
 import {GBLocalMod} from '@/services/localModManager';
 import DownloadedToolbar from './DownloadedToolbar/DownloadedToolbar';
 import DownloadedModCard from './DownloadedModCard/DownloadedModCard';
@@ -12,7 +12,7 @@ export default function DownloadedSkins() {
   const [sortAscending, setSortAscending] = useState(true);
 
   useEffect(() => {
-    const modIds = PreloadUtils.getModFolders();
+    const modIds = FileManager.getModFolders();
     if (modIds === null) return;
 
     const mods: GBLocalMod[] = [];

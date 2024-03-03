@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 
-import {PreloadUtils, SetupHelpers} from '#preload';
+import {PreloadUtils, SetupHelpers, FileManager} from '#preload';
 import ConfigManager from '@/config/configManager';
 import UIDownloadField, {type DownloadStatus} from '@UI/DownloadField/UIDownloadField';
 import UIButton from '@UI/Button/UIButton';
@@ -33,7 +33,7 @@ export default function SetupScreen() {
     setGimiStatus('Downloading');
 
     try {
-      await PreloadUtils.downloadFile(DL_URL, '/3dmigoto_download.zip', e => {
+      await FileManager.downloadFile(DL_URL, '/3dmigoto_download.zip', e => {
         if (e.total) setGimiDlBar((e.bytes / e.total) * 100);
       });
       setGimiDlBar(100);

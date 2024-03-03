@@ -1,5 +1,5 @@
-import Extractors from '../extractors';
 import {ipcRenderer} from 'electron';
+import Extractors from '../extractors';
 
 /**
  * Extracts GIMI into a mods folder.
