@@ -85,6 +85,10 @@ export class GBLocalMod {
     return this._files;
   }
 
+  public get modUrl() {
+    return this._modURL;
+  }
+
   public toJSON(): GBLocalModInfo {
     return {
       modId: this.itemId,

@@ -1,10 +1,12 @@
 import React, {useContext, useEffect, useState} from 'react';
 
+import {PreloadUtils} from '#preload';
 import type {GBLocalMod} from '@/services/localModManager';
 import UIButton from '@UI/Button/UIButton';
 import {TitleCtx} from '@/hooks/TitleContext';
 import {ModDisplayCtx} from '@/hooks/ModDisplayContext';
 import ConfigManager from '@/config/configManager';
+import ACGIcons from '@/components/UI/ACGIcons';
 import styles from './DownloadedModCard.module.css';
 
 interface DownloadedModCardProps {
@@ -70,14 +72,28 @@ export default function DownloadedModCard({mod}: DownloadedModCardProps) {
           ID: <span>{mod.itemId}</span>
         </p>
       </div>
-      <UIButton
-        display
-        onClick={moveToDisplayFrame}
-        invertColors
-        useMargin={false}
-      >
-        Manage
-      </UIButton>
+      <div className={styles.acgcag_dl_mod_card_actions}>
+        <UIButton
+          display
+          onClick={moveToDisplayFrame}
+          invertColors
+          useMargin={false}
+          style={{marginRight: '10px'}}
+        >
+          Manage
+        </UIButton>
+        <UIButton
+          display
+          invertColors
+          onClick={() => PreloadUtils.openURLInBrowser(mod.modUrl)}
+          useMargin={false}
+        >
+          <ACGIcons
+            iconName="banana"
+            iconSize={[20, 20]}
+          />
+        </UIButton>
+      </div>
     </div>
   );
 }

@@ -71,3 +71,8 @@
 .acgcag_dl_mod_card_info > p > span {
   color: var(--acgcag-dim-beige);
 }
+
+.acgcag_dl_mod_card_actions {
+  display: flex;
+  justify-content: center;
+}
