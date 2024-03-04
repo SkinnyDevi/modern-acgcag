@@ -33,11 +33,11 @@ export default function SkinImporter() {
     } catch (error) {
       setCurrentMod(null);
       if (error instanceof GameNotSupportedError) {
-        console.log('Game Not Supported');
+        console.warn('Game Not Supported');
       }
 
       if (error instanceof ModRequestError) {
-        console.log(error.message);
+        console.error(error.message);
       }
     }
   }

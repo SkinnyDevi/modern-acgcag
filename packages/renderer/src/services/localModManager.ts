@@ -137,6 +137,10 @@ export class GBLocalMod {
     const entryPath = [this._modPath, entry.fileName];
     FileManager.removeDirOrFile(entryPath.join('/'));
     this._files = this.getLocalFiles();
+
+    if (this._files.length === 0) {
+      FileManager.removeDirOrFile(`${INSTALL_PATH}/${this._itemId}`);
+    }
   }
 
   // TODO: On delete, also delete on 3dmigoto

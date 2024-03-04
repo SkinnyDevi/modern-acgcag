@@ -5,5 +5,11 @@
 }
 
 .acgcag_extras_refresh > svg {
-  fill: var(--acgcag-dim-beige);
+  fill: var(--acgcag-main-beige);
+}
+
+.acgcag_extras_refresh > p {
+  color: var(--acgcag-main-beige);
+  margin: 0 10px;
+  opacity: 0.6;
 }

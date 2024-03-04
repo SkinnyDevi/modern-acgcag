@@ -83,10 +83,7 @@ export default function SettingsView() {
           label="Blur NSFW thumbnail images"
           subtitle={generateSubtitle('blur_nsfw', 'true / false')}
           checked={toggleNsfwBlur}
-          onChange={e => {
-            console.log(e.currentTarget.checked);
-            setToggleNsfwBlur(e.currentTarget.checked);
-          }}
+          onChange={e => setToggleNsfwBlur(e.currentTarget.checked)}
         />
       </UIListContainer>
     </div>

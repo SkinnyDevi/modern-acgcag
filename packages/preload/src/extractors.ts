@@ -18,7 +18,7 @@ function zipExtractor(pathToZip: string, outDir: string, deleteZip = false) {
 
     decompress(extractPath, outPath)
       .then(() => {
-        if (deleteZip) FileManager.removeDirOrFile(extractPath);
+        if (deleteZip) FileManager.removeDirOrFile(pathToZip);
         resolve();
       })
       .catch(reason => reject(reason));

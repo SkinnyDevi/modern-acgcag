@@ -7,22 +7,34 @@ import UIButton from '@UI/Button/UIButton';
 import ACGIcons from '@UI/ACGIcons';
 import type {ACGIconsProps} from '@/components/UI/ACGIcons';
 import ACGCAG_API from '@/services/acgcagApi';
-import type {GBToolPost} from '@/services/gamebananaApi';
+import {GBToolPost} from '@/services/gamebananaApi';
 import styles from './ExtraToolsView.module.css';
 
 export default function ExtraToolsView() {
   const [refreshIcon, setRefreshIcon] = useState<ACGIconsProps['iconName']>('check');
   const [toolList, setToolList] = useState<GBToolPost[]>([]);
+  const [lastRefresh, setLastRefresh] = useState(new Date('1/1/1970'));
 
   const fetchExtraTools = useCallback(async () => {
     setRefreshIcon('loader');
     const tools = await ACGCAG_API.getExtraTools();
+    GBToolPost.saveToCache(tools);
     setToolList(tools);
+    setLastRefresh(new Date(Date.now()));
     setRefreshIcon('check');
   }, []);
 
+  function getRefreshTime() {
+    return `${lastRefresh.toLocaleString()}`;
+  }
+
   useEffect(() => {
-    fetchExtraTools();
+    const cacheRetrieval = GBToolPost.recoverExtraToolsFromCache();
+    if (cacheRetrieval === null) fetchExtraTools();
+    else {
+      setToolList(cacheRetrieval.tools);
+      setLastRefresh(new Date(cacheRetrieval.last_refresh));
+    }
   }, []);
 
   return (
@@ -41,6 +53,7 @@ export default function ExtraToolsView() {
               iconName={refreshIcon}
               iconSize={[28, 28]}
             />
+            <p>Last refresh: {getRefreshTime()}</p>
           </div>
         </div>
       </UIToolbar>

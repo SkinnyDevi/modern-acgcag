@@ -31,6 +31,7 @@ export function writeToConfig(runSetup: boolean) {
 
 /**
  * Checks if GIMI exists to run the setup installer if not.
+ * @returns True if needs to install GIMI.
  */
 export function gimiChecker() {
   const gimiFolder = rootPathlike('/acgcag_mods/3dmigoto');

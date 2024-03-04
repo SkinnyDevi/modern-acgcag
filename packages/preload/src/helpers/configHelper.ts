@@ -21,14 +21,14 @@ function getConfigPath() {
  * Check if the config file exists.
  */
 function configFileExists() {
-  return FileManager.pathExists(FileManager.rootPathlike(CONFIG_FILE_PATH));
+  return FileManager.pathExists(CONFIG_FILE_PATH);
 }
 
 /**
  * Check if the config path exists.
  */
 function configPathExists() {
-  return FileManager.pathExists(FileManager.rootPathlike(CONFIG_DIR));
+  return FileManager.pathExists(CONFIG_DIR);
 }
 
 /**

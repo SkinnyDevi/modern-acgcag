@@ -1,5 +1,6 @@
 import axios from 'axios';
-import {FileManager} from '#preload';
+import {CacheManager, CacheType, FileManager} from '#preload';
+import type {ExtraToolsCache} from '#preload';
 
 const MAIN_SITE = 'https://gamebanana.com';
 const ENDPOINT = 'https://api.gamebanana.com/Core/Item/Data';
@@ -132,7 +133,6 @@ export class GBModPost {
     this._previewImg = response[5] as string;
     this._files = response[6] as FileList;
 
-    console.log(this._super_category, this._sub_category);
     this._character = this._super_category === 'Skins' ? this._sub_category : null;
   }
 
@@ -213,6 +213,7 @@ export type GBLocalToolInfo = {
   description: string;
   authors: ToolAuthor[];
   toolUrl: string;
+  toolFiles: string;
 };
 
 export class GBToolPost {
@@ -246,21 +247,30 @@ export class GBToolPost {
     return authors;
   }
 
-  public constructor(toolId: number, response: unknown[]) {
-    this._toolId = toolId;
-    this._name = response[0] as string;
+  public constructor(toolId?: number, response?: unknown[], fromLocalInfo?: GBLocalToolInfo) {
+    if (fromLocalInfo) {
+      this._toolId = fromLocalInfo.toolId;
+      this._name = fromLocalInfo.name;
+      this._description = fromLocalInfo.description;
+      this._authors = fromLocalInfo.authors;
+      this._game = 'GI';
+      this._files = JSON.parse(fromLocalInfo.toolFiles);
+    } else if (toolId && response) {
+      this._toolId = toolId;
+      this._name = response[0] as string;
 
-    const description = response[1] as string;
-    this._description = description.length > 0 ? description : undefined;
+      const description = response[1] as string;
+      this._description = description.length > 0 ? description : undefined;
 
-    this._authors = this.authorParser(response[2] as string);
-    this._game = response[3] as string;
+      this._authors = this.authorParser(response[2] as string);
+      this._game = response[3] as string;
 
-    if (this._game !== 'Genshin Impact') {
-      throw new GameNotSupportedError('Game not supported');
-    }
+      if (this._game !== 'Genshin Impact') {
+        throw new GameNotSupportedError('Game not supported');
+      }
 
-    this._files = response[4] as FileList;
+      this._files = response[4] as FileList;
+    } else throw new Error('No valid parameters specified for class creation of GBToolPost');
   }
 
   public get toolId() {
@@ -294,6 +304,7 @@ export class GBToolPost {
       description: this.description!,
       authors: this.authors,
       toolUrl: this.toolURL,
+      toolFiles: JSON.stringify(this.files),
     };
   }
 
@@ -307,5 +318,31 @@ export class GBToolPost {
       const disected = t._sFile.split('.');
       return disected[disected.length - 1].toLowerCase() === 'exe';
     });
+  }
+
+  public static recoverExtraToolsFromCache() {
+    const cacheRetrieved = CacheManager.retriveFromCache(CacheType.C_EXTRA_TOOLS);
+    if (cacheRetrieved === null) return null;
+
+    const toolInfo: GBLocalToolInfo[] = JSON.parse(cacheRetrieved.gb_tool_post_info);
+    const tools: GBToolPost[] = [];
+
+    for (const ti of toolInfo) tools.push(new GBToolPost(undefined, undefined, ti));
+    return {
+      tools: tools,
+      last_refresh: cacheRetrieved.last_refresh,
+    };
+  }
+
+  public static saveToCache(tools: GBToolPost[]) {
+    const localInfos: GBLocalToolInfo[] = [];
+    for (const t of tools) localInfos.push(t.toJSON());
+
+    const cache: ExtraToolsCache = {
+      last_refresh: Date.now(),
+      gb_tool_post_info: JSON.stringify(localInfos),
+    };
+
+    CacheManager.saveToCache(CacheType.C_EXTRA_TOOLS, cache);
   }
 }
