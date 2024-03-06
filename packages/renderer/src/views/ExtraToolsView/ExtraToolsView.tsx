@@ -24,10 +24,6 @@ export default function ExtraToolsView() {
     setRefreshIcon('check');
   }, []);
 
-  function getRefreshTime() {
-    return `${lastRefresh.toLocaleString()}`;
-  }
-
   useEffect(() => {
     const cacheRetrieval = GBToolPost.recoverExtraToolsFromCache();
     if (cacheRetrieval === null) fetchExtraTools();
@@ -53,7 +49,7 @@ export default function ExtraToolsView() {
               iconName={refreshIcon}
               iconSize={[28, 28]}
             />
-            <p>Last refresh: {getRefreshTime()}</p>
+            <p>Last refresh: {lastRefresh.toLocaleString()}</p>
           </div>
         </div>
       </UIToolbar>

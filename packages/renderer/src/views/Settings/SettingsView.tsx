@@ -7,6 +7,7 @@ import UIToolbar from '@/components/UI/Toolbar/UIToolbar';
 import ACGIcons from '@/components/UI/ACGIcons';
 import type {ACGIconsProps} from '@/components/UI/ACGIcons';
 import UIListPillToggleItem from '@/components/UI/ListContainer/ListItem/UIListPillToggleItem';
+import UIListExtraToolItemSetting from '@/components/UI/ListContainer/ListItem/UIListExtraToolItemSetting';
 import styles from './SettingsView.module.css';
 
 const CONFIG = ConfigManager.setup();
@@ -17,6 +18,8 @@ export default function SettingsView() {
 
   const [genshinPath, setGenshinPath] = useState(CONFIG.genshin_impact_path);
   const [toggleNsfwBlur, setToggleNsfwBlur] = useState(CONFIG.blur_nsfw);
+  const [runFixerOnInstall, setRunFixerOnInstall] = useState(CONFIG.autorun_version_fixer);
+  const [fixerFileName, setFixerFileName] = useState(CONFIG.exec_version_fixer_file_name);
 
   const [savedText, setSavedText] = useState('Settings Saved');
   const [savedIcon, setSavedIcon] = useState<ACGIconsProps['iconName']>('check');
@@ -31,6 +34,8 @@ export default function SettingsView() {
     const cfg = {...dynamicConfig};
     cfg.genshin_impact_path = genshinPath;
     cfg.blur_nsfw = toggleNsfwBlur;
+    cfg.autorun_version_fixer = runFixerOnInstall;
+    cfg.exec_version_fixer_file_name = fixerFileName === 'None' ? null : fixerFileName;
 
     setDynConfig(cfg);
   }
@@ -41,7 +46,7 @@ export default function SettingsView() {
 
   useEffect(() => {
     if (initialSet) updateConfig();
-  }, [genshinPath, toggleNsfwBlur]);
+  }, [genshinPath, toggleNsfwBlur, runFixerOnInstall, fixerFileName]);
 
   useEffect(() => {
     if (initialSet) {
@@ -84,6 +89,16 @@ export default function SettingsView() {
           subtitle={generateSubtitle('blur_nsfw', 'true / false')}
           checked={toggleNsfwBlur}
           onChange={e => setToggleNsfwBlur(e.currentTarget.checked)}
+        />
+        <UIListExtraToolItemSetting
+          label="Run version fixer on any 'mod' install"
+          settingKey={generateSubtitle('autorun_version_fixer', 'true / false')}
+          subtitle={
+            'When on, this will run the version fixer installed (if any) every time a mod is installed. Disabled if no fixer is installed.'
+          }
+          checked={runFixerOnInstall}
+          pillOnChange={e => setRunFixerOnInstall(e.currentTarget.checked)}
+          selectOnChange={v => setFixerFileName(v)}
         />
       </UIListContainer>
     </div>

@@ -6,6 +6,8 @@ const DEFAULT_CONFIG: ACGCAG_Config = {
   genshin_impact_path:
     '"C:\\Program Files\\Genshin Impact\\Genshin Impact Game\\Genshin Impact.exe"',
   blur_nsfw: true,
+  autorun_version_fixer: false,
+  exec_version_fixer_file_name: null,
 };
 
 export default class ConfigManager {
@@ -15,11 +17,15 @@ export default class ConfigManager {
   private _has_run_setup: boolean;
   private _genshin_impact_path: string;
   private _blur_nsfw: boolean;
+  private _autorun_version_fixer: boolean;
+  private _exec_version_fixer_file_name: string | null;
 
   private constructor(data: ACGCAG_Config) {
     this._has_run_setup = data.has_run_setup;
     this._genshin_impact_path = data.genshin_impact_path;
     this._blur_nsfw = data.blur_nsfw;
+    this._autorun_version_fixer = data.autorun_version_fixer;
+    this._exec_version_fixer_file_name = data.exec_version_fixer_file_name;
 
     ConfigManager.instance = this;
     ConfigManager._path = ConfigHelpers.getConfigPath();
@@ -44,6 +50,20 @@ export default class ConfigManager {
    */
   public get blur_nsfw() {
     return this._blur_nsfw;
+  }
+
+  /**
+   * If the app should run the mod version fixer on mod install.
+   */
+  public get autorun_version_fixer() {
+    return this._autorun_version_fixer;
+  }
+
+  /**
+   * File name of the file that points to the version fixer executable.
+   */
+  public get exec_version_fixer_file_name() {
+    return this._exec_version_fixer_file_name;
   }
 
   /**
@@ -76,6 +96,8 @@ export default class ConfigManager {
       has_run_setup: this._has_run_setup,
       genshin_impact_path: this._genshin_impact_path,
       blur_nsfw: this._blur_nsfw,
+      autorun_version_fixer: this._autorun_version_fixer,
+      exec_version_fixer_file_name: this._exec_version_fixer_file_name,
     };
   }
 
@@ -86,6 +108,8 @@ export default class ConfigManager {
   public fromConfig(config: ACGCAG_Config) {
     this._genshin_impact_path = config.genshin_impact_path;
     this._blur_nsfw = config.blur_nsfw;
+    this._autorun_version_fixer = config.autorun_version_fixer;
+    this._exec_version_fixer_file_name = config.exec_version_fixer_file_name;
   }
 
   /**

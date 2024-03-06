@@ -32,6 +32,7 @@
   font-size: 0.95rem;
   opacity: 0.35;
   color: var(--acgcag-dim-beige);
+  max-width: 75%;
 }
 
 .acgcag_ui_list_item_small_info > input[type="text"] {
@@ -121,7 +122,8 @@
   https://codepen.io/alvarotrigo/pen/abVPyaJ
 */
 
-.acgcag_ui_list_item_small_info > input[type="checkbox"] {
+.acgcag_ui_list_item_small_info > input[type="checkbox"],
+.acgcag_ui_list_item_extra_info_horizontal > input[type="checkbox"] {
   height: 0;
   width: 0;
   visibility: hidden;
@@ -150,15 +152,20 @@
   transition: all 0.3s;
 }
 
-.acgcag_ui_list_item_small_info > input:checked + .acgcag_pill_toggle_label {
+.acgcag_ui_list_item_small_info > input:checked + .acgcag_pill_toggle_label,
+.acgcag_ui_list_item_extra_info_horizontal > input:checked + .acgcag_pill_toggle_label {
   background: #51c74d;
 }
 
+.acgcag_ui_list_item_extra_info_horizontal
+  > input[type="checkbox"]:checked
+  + .acgcag_pill_toggle_label:after,
 .acgcag_ui_list_item_small_info > input[type="checkbox"]:checked + .acgcag_pill_toggle_label:after {
   left: calc(100% - 5px);
   transform: translateX(-100%);
 }
 
+.acgcag_ui_list_item_extra_info_horizontal > .acgcag_pill_toggle_label:active:after,
 .acgcag_ui_list_item_small_info > .acgcag_pill_toggle_label:active:after {
   width: 40px;
 }

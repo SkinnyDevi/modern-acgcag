@@ -1,5 +1,5 @@
 import axios from 'axios';
-import {CacheManager, CacheType, FileManager} from '#preload';
+import {CacheManager, CacheType, FileManager, PreloadUtils} from '#preload';
 import type {ExtraToolsCache} from '#preload';
 
 const MAIN_SITE = 'https://gamebanana.com';
@@ -344,5 +344,27 @@ export class GBToolPost {
     };
 
     CacheManager.saveToCache(CacheType.C_EXTRA_TOOLS, cache);
+  }
+
+  public static getInstalled() {
+    const path = '/acgcag_mods/3dmigoto/Mods';
+
+    if (!FileManager.pathExists(path, true)) {
+      alert(
+        'Error! Mod loader appears to be incorrect. This app will restart to correct the issue.',
+      );
+
+      PreloadUtils.restartApp();
+      FileManager.removeDirOrFile('/acgcag_mods/3dmigoto');
+      return [];
+    }
+
+    const contents = FileManager.getFolderContents(path);
+    if (contents === null) return [];
+
+    return contents.filter(v => {
+      const disected = v.split('.');
+      return disected[disected.length - 1] === 'exe';
+    });
   }
 }

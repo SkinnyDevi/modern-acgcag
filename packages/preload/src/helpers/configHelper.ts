@@ -7,6 +7,8 @@ export type ACGCAG_Config = {
   has_run_setup: boolean;
   genshin_impact_path: string;
   blur_nsfw: boolean;
+  autorun_version_fixer: boolean;
+  exec_version_fixer_file_name: string | null;
 };
 
 /**
